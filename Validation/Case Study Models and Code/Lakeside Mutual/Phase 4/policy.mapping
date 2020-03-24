@@ -1,0 +1,16 @@
+import microservices from "../Phase 3/policy/service_policy.services" as services
+import technology from "java.technology" as java
+
+@technology(java)
+services::org.example.policy.Policy {
+	aspects { java::_aspects.CustomProperty(name = "server.port", value="8084"); }
+	
+	interface Policy {
+		endpoints {	java::_protocols.rest: "policy"; }
+	}
+	
+	operation Policy.updatePolicy {
+		endpoints {	java::_protocols.rest: "updatePolicy"; }
+		aspects { java::_aspects.PutMapping; }
+	}
+}

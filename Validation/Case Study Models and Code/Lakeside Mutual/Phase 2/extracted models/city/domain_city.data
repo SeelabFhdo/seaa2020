@@ -1,0 +1,15 @@
+context city {
+	structure City <valueObject> {
+		immutable unspecified name,
+		immutable unspecified postalCode
+	}
+
+	structure CityShared <valueObject> {
+		unspecified name,
+		unspecified postalCode
+	}
+
+	list ListCityShared {
+		CityShared cityShared
+	}
+}

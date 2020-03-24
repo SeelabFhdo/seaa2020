@@ -1,0 +1,11 @@
+import datatypes from "domain_identityAccess.data" as identityAccess
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.identityAccess --> microservice org.example.identityAccess.IdentityAccess
+architecture functional microservice org.example.identityAccess.IdentityAccess {
+	// A7: Specify operations for microservices that do not exhibit sharing relationships with other microservices
+	//		Added IdentityAccess interface and performLogin() operation
+	internal interface IdentityAccess {
+		performLogin(sync in email : string, sync in password : string);
+	}
+}

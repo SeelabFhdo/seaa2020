@@ -1,0 +1,486 @@
+-- @atlcompiler emftvm
+-- @path Domain=/de.fhdo.lemma.data.datadsl.metamodel/model/DataViewpointModel.xcore
+module domain_services_refinement;
+create OUT : Domain, FAKE_OUT : Domain refining IN : Domain, DDMM : UML2;
+uses "helpers";
+uses "service_transformation_helpers";
+
+helper def : ComlexTypeReferencesTodo : Sequence(
+	TupleType(object : OclAny, refValue : String, ctx : String, type : String)
+) = Sequence{};
+
+helper def : HandledAssociationClasses : Set(UML2!Class) = Set{};
+
+helper def : alreadyHandled(class : UML2!Class) : Boolean =
+	thisModule.HandledAssociationClasses->exists(a | a = class)
+;
+
+rule handled(class : UML2!Class) {
+	do {
+		thisModule.HandledAssociationClasses <-
+			thisModule.HandledAssociationClasses->including(class);
+	}
+}
+
+rule registerTypeRefTodo(object : OclAny, refValue : String, ctx : String, type : String) {
+	do {
+		thisModule.registerTypeRefTodoTuple(
+			Tuple{object = object, refValue = refValue, ctx = ctx, type = type}
+		);
+	}
+}
+
+rule registerTypeRefTodoTuple(
+	ref : TupleType(object : OclAny, refValue : String, ctx : String, type : String)
+) {
+	do {
+		if (not ref.type.oclIsUndefined())
+			if (ref.type <> '')
+				thisModule.ComlexTypeReferencesTodo <-
+					thisModule.ComlexTypeReferencesTodo->including(ref);
+	}
+}
+
+helper def : StructuredListsToCreate : Sequence(
+	TupleType(ctx : Domain!Context, structure : String, qualifiedName : String)
+) = Sequence{};
+
+rule registerStructuredListToCreate(ctx : Domain!Context, structure : String) {
+	using {
+		newQualifiedName : String = thisModule.qualifiedComplexTypeName(ctx.name, structure);
+		existingLists : Set(String) =
+			thisModule.StructuredListsToCreate->collect(l | l.qualifiedName)->asSet();
+	}
+	do {
+		if (not existingLists->exists(l | l = newQualifiedName))
+			thisModule.StructuredListsToCreate <- thisModule.StructuredListsToCreate->including(
+				Tuple{ctx = ctx, structure = structure, qualifiedName = newQualifiedName}
+			);
+	}
+}
+
+rule BoundedContext {
+	from
+		s : Domain!Context
+	using {
+		package : UML2!Package = s.findPackage();
+		providedTypes : Sequence(TupleType(key : OclAny, value : OclAny)) =
+			package.providedTypes()->unpack();
+		receivedTypes : Sequence(UML2!AssociationClass) =
+			package.receivedTypes()->unpack();
+		oppositePropery : UML2!Property = OclUndefined;
+		typeProperty : UML2!Property = OclUndefined;
+		typeStructure : Domain!DataStructure = OclUndefined;
+		typeClass : UML2!Class = OclUndefined;
+		hasAssociationClass : Boolean = OclUndefined;
+		associationName : String = OclUndefined;
+		operationParameters : Sequence(UML2!Parameter) = OclUndefined;
+	}
+	to
+		t : Domain!Context
+	do {
+		for (typeDescription in receivedTypes) {
+			typeStructure <- typeDescription.value;
+			typeClass <- typeStructure.findClass();
+			typeProperty <- typeDescription.key.memberEndOfType(typeClass);
+			oppositePropery <- typeDescription.key.oppositeMemberEnd(typeClass);
+			hasAssociationClass <- typeDescription.key.oclIsTypeOf(UML2!AssociationClass);
+			associationName <- typeDescription.key.name;
+
+			if (hasAssociationClass) {
+				thisModule.DataStructureFromAssociationClass(typeDescription.key, s);
+				thisModule.DataField(associationName, typeDescription.key, typeStructure, s.name);
+
+				if (oppositePropery.isMultivalued())
+					thisModule.registerStructuredListToCreate(s, associationName);
+			}
+		}
+
+		for (typeDescription in providedTypes) {
+			typeStructure <- typeDescription.value;
+			typeClass <- typeStructure.findClass();
+			typeProperty <- typeDescription.key.memberEndOfType(typeClass);
+			associationName <- typeDescription.key.name;
+			hasAssociationClass <- typeDescription.key.oclIsTypeOf(UML2!AssociationClass);
+
+			if (hasAssociationClass) {
+				thisModule.DataStructureFromAssociationClass(typeDescription.key, s);
+
+				for (attribute in typeDescription.key.ownedAttribute) {
+					if (attribute.isMultivalued() and attribute.type.oclIsTypeOf(UML2!Class))
+						thisModule.registerStructuredListToCreate(s, attribute.type.name);
+				}
+
+				operationParameters <- typeDescription.key.ownedOperation
+				->collect(o | o.ownedParameter)
+				->flatten();
+				for (parameter in operationParameters) {
+					if (parameter.isMultivalued() and (
+							parameter.type.oclIsTypeOf(UML2!Class) or
+							parameter.type.oclIsTypeOf(UML2!AssociationClass)
+						)
+					)
+						thisModule.registerStructuredListToCreate(s, parameter.type.name);
+				}
+
+				if (typeProperty.isMultivalued())
+					thisModule.registerStructuredListToCreate(s, associationName);
+			} else if (typeProperty.isMultivalued())
+					thisModule.registerStructuredListToCreate(s, typeStructure.name);
+		}
+	}
+}
+
+rule DataStructureFromAssociationClass(
+	associationClass : UML2!AssociationClass,
+	targetContext : Domain!Context
+) {
+	using {
+		associatedClasses : Sequence(
+			TupleType(class : UML2!Class, association : UML2!Association)
+		) = associationClass.associatedClasses(false, true);
+		uniqueAssociatedClasses : Set(UML2!Class)
+			= associatedClasses->collect(a | a.class)->asSet();
+		typedParameters : Sequence(
+			TupleType(umlParameter : UML2!Parameter, lemmaParameter : Domain!DataOperationParameter)
+		) = UML2!Parameter.allInstances()
+				->select(p | p.type = associationClass)
+				->collect(p |
+					Tuple{umlParameter = p, lemmaParameter = p.findDataOperationParameter()}
+				)
+				->select(pt | not pt.lemmaParameter.oclIsUndefined());
+	}
+	to
+		t : Domain!DataStructure(
+			name <- associationClass.name.lemmaName(),
+			context <- targetContext,
+			features <- if (associationClass.hasStereotype('ValueObject')) then
+					Sequence{#VALUE_OBJECT}
+				else
+					Sequence{}
+				endif
+		)
+	do {
+		for (attribute in associationClass.ownedAttribute) {
+			thisModule.DataField(attribute.name, attribute.type, t, targetContext.name);
+		}
+
+		for (associatedClass in associatedClasses) {
+			if (not thisModule.alreadyHandled(associatedClass.class)) {
+				thisModule.DataStructureFromClass(associatedClass.class, targetContext);
+				thisModule.handled(associatedClass.class);
+			}
+		}
+
+		thisModule.AssociationDataFields(t, targetContext, associatedClasses, false);
+
+		for (parameterTuple in typedParameters) {
+			if (parameterTuple.umlParameter.isMultivalued()) {
+				thisModule.registerTypeRefTodo(parameterTuple.lemmaParameter, 'complexType',
+					targetContext.name, associationClass.name.lemmaListName());
+				thisModule.registerStructuredListToCreate(targetContext,
+					associationClass.name.lemmaName());
+			} else
+				thisModule.registerTypeRefTodo(parameterTuple.lemmaParameter, 'complexType',
+					targetContext.name, associationClass.name.lemmaName());
+		}
+
+		t;
+	}
+}
+
+rule DataStructureFromClass(class : UML2!Class,	targetContext : Domain!Context) {
+	using {
+		associatedClasses : Sequence(
+			TupleType(class : UML2!Class, association : UML2!Association)
+		) = class.associatedClasses(false, true);
+	}
+	to
+		t : Domain!DataStructure(
+			name <- class.name.lemmaName(),
+			context <- targetContext,
+			features <- if (class.hasStereotype('ValueObject')) then
+					Sequence{#VALUE_OBJECT}
+				else
+					Sequence{}
+				endif
+		)
+	do {
+		for (attribute in class.ownedAttribute) {
+			thisModule.DataField(attribute.name, attribute.type, t, targetContext.name);
+		}
+
+		for (associatedClass in associatedClasses) {
+			if (not thisModule.alreadyHandled(associatedClass.class)) {
+				thisModule.DataStructureFromClass(associatedClass.class, targetContext);
+				thisModule.handled(associatedClass.class);
+			}
+		}
+
+		thisModule.AssociationDataFields(t, targetContext, associatedClasses, false);
+
+		t;
+	}
+}
+
+rule AssociationDataFields(
+	structure : Domain!DataStructure,
+	ctx : Domain!Context,
+	associationDescriptions
+		: Sequence(TupleType(class : UML2!Class, association : UML2!Association)),
+	ignoreMultivalues : Boolean
+) {
+	using {
+		property : UML2!Property = OclUndefined;
+		dataField : Domain!DataField = OclUndefined;
+	}
+	do {
+		for (d in associationDescriptions) {
+			property <- d.association.memberEndOfType(d.class);
+			dataField <- thisModule.DataField(property.name, property.type, structure, ctx.name);
+
+			if (not ignoreMultivalues and property.isMultivalued()) {
+				thisModule.registerStructuredListToCreate(ctx, d.class.name.lemmaName());
+				thisModule.registerTypeRefTodo(dataField, 'complexType', ctx.name,
+					d.class.name.lemmaListName());
+			}
+		}
+	}
+}
+
+rule CopyDataField(sourceField : Domain!DataField, targetStructure : Domain!DataStructure) {
+	to
+		t: Domain!DataField(
+			name <- sourceField.name,
+			complexType <- sourceField.complexType,
+			primitiveType <- sourceField.copyPrimitiveType(),
+			dataStructure <- targetStructure
+		)
+	do {
+		t;
+	}
+}
+
+helper context Domain!DataField def : copyPrimitiveType() : Domain!PrimitiveType =
+	if (self.primitiveType.oclIsUndefined()) then
+		OclUndefined
+	else
+		let typeName : String = self.primitiveType.typeName in
+		if (typeName = 'boolean') then
+			thisModule.PrimitiveBoolean()
+		else if (typeName = 'byte') then
+			thisModule.PrimitiveByte()
+		else if (typeName = 'char') then
+			thisModule.PrimitiveCharacter()
+		else if (typeName = 'date') then
+			thisModule.PrimitiveDate()
+		else if (typeName = 'double') then
+			thisModule.PrimitiveDouble()
+		else if (typeName = 'float') then
+			thisModule.PrimitiveFloat()
+		else if (typeName = 'int') then
+			thisModule.PrimitiveInteger()
+		else if (typeName = 'long') then
+			thisModule.PrimitiveLong()
+		else if (typeName = 'short') then
+			thisModule.PrimitiveShort()
+		else if (typeName = 'string') then
+			thisModule.PrimitiveString()
+		else
+			OclUndefined
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+		endif
+	endif
+;
+
+rule PrimitiveBoolean() {
+	to t : Domain!PrimitiveBoolean
+	do { t;	}
+}
+
+rule PrimitiveByte() {
+	to t : Domain!PrimitiveByte
+	do { t;	}
+}
+
+rule PrimitiveCharacter() {
+	to t : Domain!PrimitiveCharacter
+	do { t;	}
+}
+
+rule PrimitiveDate() {
+	to t : Domain!PrimitiveDate
+	do { t;	}
+}
+
+rule PrimitiveDouble() {
+	to t : Domain!PrimitiveDouble
+	do { t;	}
+}
+
+rule PrimitiveFloat() {
+	to t : Domain!PrimitiveFloat
+	do { t;	}
+}
+
+rule PrimitiveInteger() {
+	to t : Domain!PrimitiveInteger
+	do { t;	}
+}
+
+rule PrimitiveLong() {
+	to t : Domain!PrimitiveLong
+	do { t;	}
+}
+
+rule PrimitiveShort() {
+	to t : Domain!PrimitiveShort
+	do { t;	}
+}
+
+rule PrimitiveString() {
+	to t : Domain!PrimitiveString
+	do { t;	}
+}
+
+rule DataField(name : String, type : OclAny, structure : Domain!DataStructure, ctx : String) {
+	using {
+		sourceTypeName : String = if (not type.oclIsUndefined()) then
+				type.name.lemmaName()
+			else
+				''
+			endif;
+		fieldName : String = if (not name.oclIsUndefined()) then
+				name
+			else
+				sourceTypeName.toLowerFirst()
+			endif;
+	}
+	to
+		t : Domain!DataField(
+			name <- fieldName.lemmaName(),
+			dataStructure <- structure
+		)
+	do {
+		if (type.oclIsTypeOf(UML2!PrimitiveType))
+			t.primitiveType <- thisModule.lemmaTypeTuple(type, Tuple{});
+		else
+			thisModule.lemmaType(type, t, 'complexType', ctx, sourceTypeName);
+
+		t;
+	}
+}
+
+helper def : lemmaType(type : OclAny, object : OclAny, refValue : String, ctx : String,
+	typeName : String) : Domain!Type =
+	thisModule.lemmaTypeTuple(
+		type,
+		Tuple{object = object, refValue = refValue, ctx = ctx, type = typeName}
+	)
+;
+
+helper def : lemmaTypeTuple(type : OclAny, complexTypeRef : TupleType(object : OclAny,
+	refValue : String, ctx : String, type : String)) : Domain!Type =
+	if (type.oclIsUndefined()) then
+		OclUndefined
+	else if (type.oclIsTypeOf(UML2!PrimitiveType)) then
+		type.lemmaType()
+	else if (type.oclIsTypeOf(UML2!Class) or type.oclIsTypeOf(UML2!AssociationClass)) then
+		thisModule.registerTypeRefTodoTuple(complexTypeRef)
+	else
+		OclUndefined
+	endif
+	endif
+	endif
+;
+
+helper context UML2!PrimitiveType def : lemmaType() : Domain!PrimitiveType =
+	if (self.name = 'Boolean') then
+		thisModule.PrimitiveBoolean()
+	else if (self.name = 'Integer') then
+		thisModule.PrimitiveInteger()
+	else if (self.name = 'String') then
+		thisModule.PrimitiveString()
+	else if (self.name = 'Real') then
+		thisModule.PrimitiveDouble()
+	else
+		OclUndefined
+	endif
+	endif
+	endif
+	endif
+;
+
+endpoint rule Endpoint() {
+	using {
+		object : OclAny = OclUndefined;
+		refValue : String = OclUndefined;
+		ctx : String = OclUndefined;
+		type : String = OclUndefined;
+		qualifiedTypeName : String = OclUndefined;
+		complexType : Domain!ComplexType = OclUndefined;
+		createdStructuredLists : Map(String, Domain!ListType) = Map{};
+	}
+	do {
+		for (list in thisModule.StructuredListsToCreate) {
+			createdStructuredLists <- createdStructuredLists->including(
+				list.qualifiedName,
+				thisModule.RawStructuredListType(list.ctx, list.structure)
+			);
+		}
+
+		for (refTodo in thisModule.ComlexTypeReferencesTodo) {
+			object <- refTodo.object;
+			refValue <- refTodo.refValue;
+			ctx <- refTodo.ctx;
+			type <- refTodo.type;
+			qualifiedTypeName <- thisModule.qualifiedComplexTypeName(ctx, type);
+
+			complexType <- thisModule.findCreatedComplexType(ctx, type);
+			if (complexType.oclIsUndefined())
+				complexType <- createdStructuredLists.get(qualifiedTypeName);
+
+			object.refSetValue(refValue, complexType);
+		}
+	}
+}
+
+rule RawStructuredListType(ctx : Domain!Context, structure : String) {
+	using {
+		listName : String = structure.lemmaListName();
+		fieldName : String = structure.toLowerFirst();
+		dataField : Domain!DataField = thisModule.RawLemmaDataField(fieldName, ctx.name, structure);
+	}
+	to
+		t : Domain!ListType(
+			name <- listName,
+			dataFields <- Sequence{dataField},
+			context <- ctx
+		)
+	do {
+		t;
+	}
+}
+
+rule RawLemmaDataField(name : String, ctx : String, complexType : String) {
+	to
+		t : Domain!DataField(
+			name <- name
+		)
+	do {
+		thisModule.registerTypeRefTodo(t, 'complexType', ctx, complexType);
+		t;
+	}
+}
+
+helper context Domain!Context def : findPackage() : UML2!Package =
+	UML2!Package.allInstances()->any(p | p.name.lemmaName() = self.name)
+;

@@ -1,0 +1,54 @@
+import datatypes from "domain.data" as domain
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.customer --> microservice org.example.customer.Customer {
+architecture functional microservice org.example.customer.Customer {
+	interface ProvidedTypes {
+		getCustomerId(sync out customerId : domain::customer.CustomerId);
+		// A5: Rename duplicate microservice operations
+		//		getCustomerId(sync out listCustomerId...) --> getCustomers(sync out listCustomerId...) -->
+		getCustomers(sync out listCustomerId : domain::customer.ListCustomerId);
+	}
+}
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.city --> microservice org.example.city.City {
+architecture functional microservice org.example.city.City {
+	interface ProvidedTypes {
+		// A4: Replace unspecified type in parameters with concrete type
+		// 		getCitiesForPostalCode(sync postalCode : unspecified --> getCitiesForPostalCode(sync postalCode : string
+		// A8: Assign concrete names to parameters
+		//		sync out unnamed --> sync out city
+		getCitiesForPostalCode(sync postalCode : string, sync out city : domain::city.ListCityShared);
+	}
+}
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.identityAccess --> microservice org.example.identityAccess.IdentityAccess
+architecture functional microservice org.example.identityAccess.IdentityAccess {
+	// A7: Specify operations for microservices that do not exhibit sharing relationships with other microservices
+	//		Added IdentityAccess interface and performLogin() operation
+	internal interface IdentityAccess {
+		performLogin(sync in email : string, sync in password : string);
+	}
+}
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.policy --> microservice org.example.policy.Policy
+architecture functional microservice org.example.policy.Policy {
+	// A7: Specify operations for microservices that do not exhibit sharing relationships with other microservices
+	//		Added Policy interface and updatePolicy() operation
+	interface Policy {
+		updatePolicy(sync in policy : domain::policy.PolicyAggregateRoot);
+	}
+}
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.interactionLog --> microservice org.example.interactionLog.InteractionLog
+architecture functional microservice org.example.interactionLog.InteractionLog {
+	// A7: Specify operations for microservices that do not exhibit sharing relationships with other microservices
+	//		Added InteractionLog interface and getNotifications() operation
+	interface InteractionLog {
+		getNotifications(sync out notifications : domain::interactionLog.ListNotification);
+	}
+}

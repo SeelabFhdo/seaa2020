@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<data:DataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data">
+  <contexts name="Location">
+    <complexTypes xsi:type="data:DataStructure" name="LocationService">
+      <features>SERVICE</features>
+      <dataFields name="location" complexType="//@contexts.0/@complexTypes.2"/>
+      <operations name="resolvebyportcode">
+        <parameters name="unnamed">
+          <primitiveType xsi:type="data:PrimitiveString"/>
+        </parameters>
+      </operations>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="Location">
+      <features>ENTITY</features>
+      <dataFields name="portcode">
+        <features>IDENTIFIER</features>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListLocation">
+      <dataFields name="location" complexType="//@contexts.0/@complexTypes.1"/>
+    </complexTypes>
+  </contexts>
+</data:DataModel>

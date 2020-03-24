@@ -1,0 +1,16 @@
+import microservices from "../Phase 3/Customer/service_Customer.services" as services
+import technology from "java.technology" as java
+
+@technology(java)
+services::org.example.customer.Customer {
+	aspects { java::_aspects.CustomProperty(name = "server.port", value="8081"); }
+	
+	interface ProvidedTypes {
+		endpoints {	java::_protocols.rest: "customer"; }
+	}
+	
+	operation ProvidedTypes.getCustomer {
+		endpoints {	java::_protocols.rest: "customer"; }
+		aspects { java::_aspects.GetMapping; }
+	}
+}

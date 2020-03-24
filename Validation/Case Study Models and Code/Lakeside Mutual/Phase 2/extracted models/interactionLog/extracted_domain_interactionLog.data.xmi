@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ASCII"?>
+<data:DataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data">
+  <contexts name="interactionLog">
+    <complexTypes xsi:type="data:DataStructure" name="InteractionLogRepository">
+      <features>REPOSITORY</features>
+      <dataFields name="interactions" complexType="//@contexts.0/@complexTypes.5"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="InteractionLogService">
+      <features>SERVICE</features>
+      <dataFields name="^repository" complexType="//@contexts.0/@complexTypes.0"/>
+      <operations name="getNotifications" complexReturnType="//@contexts.0/@complexTypes.6"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="InteractionEntity">
+      <features>ENTITY</features>
+      <dataFields name="id">
+        <features>IDENTIFIER</features>
+      </dataFields>
+      <dataFields name="^date"/>
+      <dataFields name="content"/>
+      <dataFields name="sentByOperator"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="InteractionLogAggregateRoot">
+      <features>ENTITY</features>
+      <features>AGGREGATE</features>
+      <dataFields name="username"/>
+      <dataFields name="lastAcknowledgedInteractionId"/>
+      <dataFields name="interactions" complexType="//@contexts.0/@complexTypes.7"/>
+      <operations name="getNumberOfUnacknowledgedInteractions">
+        <primitiveReturnType xsi:type="data:PrimitiveInteger"/>
+      </operations>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="Notification">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="username" immutable="true"/>
+      <dataFields name="count" immutable="true"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListInteractionLogAggregateRoot">
+      <dataFields name="interactionLogAggregateRoot" complexType="//@contexts.0/@complexTypes.3"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListNotification">
+      <dataFields name="notification" complexType="//@contexts.0/@complexTypes.4"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListInteractionEntity">
+      <dataFields name="interactionEntity" complexType="//@contexts.0/@complexTypes.2"/>
+    </complexTypes>
+  </contexts>
+</data:DataModel>

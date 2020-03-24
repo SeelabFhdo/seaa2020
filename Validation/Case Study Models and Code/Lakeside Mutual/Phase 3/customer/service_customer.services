@@ -1,0 +1,12 @@
+import datatypes from "domain_customer.data" as customer
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.customer --> microservice org.example.customer.Customer {
+architecture functional microservice org.example.customer.Customer {
+	interface ProvidedTypes {
+		getCustomerId(sync out customerId : customer::customer.CustomerId);
+		// A5: Rename duplicate microservice operations
+		//		getCustomerId(sync out listCustomerId...) --> getCustomers(sync out listCustomerId...) -->
+		getCustomers(sync out listCustomerId : customer::customer.ListCustomerId);
+	}
+}

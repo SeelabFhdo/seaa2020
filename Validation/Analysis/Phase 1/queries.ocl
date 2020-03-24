@@ -1,0 +1,55 @@
+-- This file shows the OCL queries, which were used to automatically retrieve the numbers mentioned in the "DDD Domain Model Structures"
+-- paragraph in Subsection IV-B of the paper from the input DDD domain models.
+
+'Bounded Context count: '.concat(
+    Package.allInstances()
+        ->select(p | p.getAppliedStereotypes()->exists(s | s.name = 'BoundedContext'))
+        ->size().toString()
+)
+
+Package.allInstances()
+    ->select(p | p.getAppliedStereotypes()->exists(s | s.name = 'BoundedContext'))
+    ->collect(p | 'Domain concept count in "'.concat(p.name).concat('" Bounded Context: ').concat(p.ownedType->size().toString()))
+
+'Domain concept count: '.concat(
+    Package.allInstances()
+        ->select(p | p.getAppliedStereotypes()->exists(s | s.name = 'BoundedContext'))
+        ->collect(p | p.ownedType->size())
+        ->sum().toString()
+)
+
+'Domain concepts property count: '.concat(
+	Property.allInstances()
+        ->select(p | not p.class.oclIsUndefined())
+        ->select(p | p.class.ownedAttribute->includes(p))
+        ->select(p | p.class.package.getAppliedStereotypes()->exists(s | s.name = 'BoundedContext'))
+	    ->size().toString()
+)
+
+'Domain concepts operation count: '.concat(
+	Operation.allInstances()
+        ->select(p | not p.class.oclIsUndefined())
+        ->select(p | p.class.package.getAppliedStereotypes()->exists(s | s.name = 'BoundedContext'))
+	    ->size().toString()
+)
+
+'Count of associations between Bounded Contexts: '.concat(
+    Association.allInstances()
+        ->select(a | 
+        	a.memberEnd->at(1).type.package.getAppliedStereotypes()->exists(s | s.name = 'BoundedContext') and
+        	a.memberEnd->at(2).type.package.getAppliedStereotypes()->exists(s | s.name = 'BoundedContext')
+        )
+        ->select(a | a.memberEnd->at(1).type.package.name <> a.memberEnd->at(2).type.package.name)
+        ->size().toString()
+)
+
+'Count of association classes between Bounded Contexts: '.concat(
+    Association.allInstances()
+        ->select(a | 
+        	a.memberEnd->at(1).type.package.getAppliedStereotypes()->exists(s | s.name = 'BoundedContext') and
+        	a.memberEnd->at(2).type.package.getAppliedStereotypes()->exists(s | s.name = 'BoundedContext')
+        )
+        ->select(a | a.memberEnd->at(1).type.package.name <> a.memberEnd->at(2).type.package.name)
+        ->select(a | a.oclIsTypeOf(AssociationClass))
+        ->size().toString()
+)

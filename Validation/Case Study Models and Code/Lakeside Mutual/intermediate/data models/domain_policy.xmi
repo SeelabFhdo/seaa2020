@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateDataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/Phase 3/policy/domain_policy.data">
+  <contexts name="policy" qualifiedName="policy">
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="RiskManagementService" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.RiskManagementService">
+      <featureNames>SERVICE</featureNames>
+      <operations name="notifyRiskManagement" qualifiedName="policy.RiskManagementService.notifyRiskManagement">
+        <returnType>
+          <type xsi:type="intermediate:IntermediateComplexType" name="PolicyEvent" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyEvent"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="PolicyEvent" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyEvent"/>
+        </returnType>
+        <parameters name="originator" qualifiedName="policy.RiskManagementService.notifyRiskManagement.originator">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        </parameters>
+        <parameters name="date" qualifiedName="policy.RiskManagementService.notifyRiskManagement.date">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+        <parameters name="customer" qualifiedName="policy.RiskManagementService.notifyRiskManagement.customer">
+          <type xsi:type="intermediate:IntermediateComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.CustomerShared"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.CustomerShared"/>
+        </parameters>
+        <parameters name="policy" qualifiedName="policy.RiskManagementService.notifyRiskManagement.policy">
+          <type xsi:type="intermediate:IntermediateComplexType" name="PolicyAggregateRoot" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyAggregateRoot"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="PolicyAggregateRoot" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyAggregateRoot"/>
+        </parameters>
+      </operations>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="InsuringAgreementEntity" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.InsuringAgreementEntity">
+      <featureNames>ENTITY</featureNames>
+      <dataFields name="id" qualifiedName="policy.InsuringAgreementEntity.id">
+        <featureNames>IDENTIFIER</featureNames>
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="items" qualifiedName="policy.InsuringAgreementEntity.items">
+        <type xsi:type="intermediate:IntermediateComplexType" name="ListInsuringAgreementItem" origin="DATA_MODEL" kind="LIST" qualifiedName="policy.ListInsuringAgreementItem"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="ListInsuringAgreementItem" origin="DATA_MODEL" kind="LIST" qualifiedName="policy.ListInsuringAgreementItem"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="PolicyAggregateRoot" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyAggregateRoot">
+      <featureNames>AGGREGATE</featureNames>
+      <featureNames>ENTITY</featureNames>
+      <dataFields name="creationDate" qualifiedName="policy.PolicyAggregateRoot.creationDate">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="id" qualifiedName="policy.PolicyAggregateRoot.id">
+        <featureNames>IDENTIFIER</featureNames>
+        <featureNames>PART</featureNames>
+        <type xsi:type="intermediate:IntermediateComplexType" name="PolicyId" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyId"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="PolicyId" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyId"/>
+      </dataFields>
+      <dataFields name="policyPeriod" qualifiedName="policy.PolicyAggregateRoot.policyPeriod">
+        <featureNames>PART</featureNames>
+        <type xsi:type="intermediate:IntermediateComplexType" name="PolicyPeriod" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyPeriod"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="PolicyPeriod" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyPeriod"/>
+      </dataFields>
+      <dataFields name="policyType" qualifiedName="policy.PolicyAggregateRoot.policyType">
+        <featureNames>PART</featureNames>
+        <type xsi:type="intermediate:IntermediateComplexType" name="PolicyType" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyType"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="PolicyType" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyType"/>
+      </dataFields>
+      <dataFields name="policyLimit" qualifiedName="policy.PolicyAggregateRoot.policyLimit">
+        <featureNames>PART</featureNames>
+        <type xsi:type="intermediate:IntermediateComplexType" name="MoneyAmount" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.MoneyAmount"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="MoneyAmount" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.MoneyAmount"/>
+      </dataFields>
+      <dataFields name="insurancePremium" qualifiedName="policy.PolicyAggregateRoot.insurancePremium">
+        <featureNames>PART</featureNames>
+        <type xsi:type="intermediate:IntermediateComplexType" name="MoneyAmount" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.MoneyAmount"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="MoneyAmount" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.MoneyAmount"/>
+      </dataFields>
+      <dataFields name="insuringAgreement" qualifiedName="policy.PolicyAggregateRoot.insuringAgreement">
+        <type xsi:type="intermediate:IntermediateComplexType" name="InsuringAgreementEntity" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.InsuringAgreementEntity"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="InsuringAgreementEntity" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.InsuringAgreementEntity"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="InsuringAgreementItem" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.InsuringAgreementItem">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="id" qualifiedName="policy.InsuringAgreementItem.id" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="title" qualifiedName="policy.InsuringAgreementItem.title" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="description" qualifiedName="policy.InsuringAgreementItem.description" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="MoneyAmount" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.MoneyAmount">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="amount" qualifiedName="policy.MoneyAmount.amount" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="float" origin="BUILTIN" kind="PRIMITIVE" size="32"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="float" origin="BUILTIN" kind="PRIMITIVE" size="32"/>
+      </dataFields>
+      <dataFields name="currency" qualifiedName="policy.MoneyAmount.currency" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="PolicyId" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyId">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <operations name="random" qualifiedName="policy.PolicyId.random">
+        <returnType>
+          <type xsi:type="intermediate:IntermediateComplexType" name="PolicyId" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyId"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="PolicyId" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyId"/>
+        </returnType>
+      </operations>
+      <dataFields name="id" qualifiedName="policy.PolicyId.id" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="PolicyPeriod" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyPeriod">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="startDate" qualifiedName="policy.PolicyPeriod.startDate" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="endDate" qualifiedName="policy.PolicyPeriod.endDate" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="PolicyType" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyType">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="name" qualifiedName="policy.PolicyType.name" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="PolicyEvent" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.PolicyEvent">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="originator" qualifiedName="policy.PolicyEvent.originator" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="date" qualifiedName="policy.PolicyEvent.date" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="CustomerShared" qualifiedName="policy.PolicyEvent.CustomerShared">
+        <type xsi:type="intermediate:IntermediateComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.CustomerShared"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.CustomerShared"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.CustomerShared">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="customerId" qualifiedName="policy.CustomerShared.customerId">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="customerProfile" qualifiedName="policy.CustomerShared.customerProfile">
+        <type xsi:type="intermediate:IntermediateComplexType" name="CustomerProfileShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.CustomerProfileShared"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="CustomerProfileShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.CustomerProfileShared"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="CustomerProfileShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.CustomerProfileShared">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="firstname" qualifiedName="policy.CustomerProfileShared.firstname">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="lastname" qualifiedName="policy.CustomerProfileShared.lastname">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="birthday" qualifiedName="policy.CustomerProfileShared.birthday">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="email" qualifiedName="policy.CustomerProfileShared.email">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="phoneNumber" qualifiedName="policy.CustomerProfileShared.phoneNumber">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="address" qualifiedName="policy.CustomerProfileShared.address">
+        <type xsi:type="intermediate:IntermediateComplexType" name="AddressShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.AddressShared"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="AddressShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.AddressShared"/>
+      </dataFields>
+      <dataFields name="moveHistory" qualifiedName="policy.CustomerProfileShared.moveHistory">
+        <type xsi:type="intermediate:IntermediateComplexType" name="ListAddressShared" origin="DATA_MODEL" kind="LIST" qualifiedName="policy.ListAddressShared"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="ListAddressShared" origin="DATA_MODEL" kind="LIST" qualifiedName="policy.ListAddressShared"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="AddressShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.AddressShared">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="streetAddress" qualifiedName="policy.AddressShared.streetAddress">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="postalCode" qualifiedName="policy.AddressShared.postalCode">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="city" qualifiedName="policy.AddressShared.city">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListInsuringAgreementItem" origin="DATA_MODEL" kind="LIST" qualifiedName="policy.ListInsuringAgreementItem" structuredList="true">
+      <dataFields name="insuringAgreementItem" qualifiedName="policy.ListInsuringAgreementItem.insuringAgreementItem">
+        <type xsi:type="intermediate:IntermediateComplexType" name="InsuringAgreementItem" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.InsuringAgreementItem"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="InsuringAgreementItem" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.InsuringAgreementItem"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListAddressShared" origin="DATA_MODEL" kind="LIST" qualifiedName="policy.ListAddressShared" structuredList="true">
+      <dataFields name="addressShared" qualifiedName="policy.ListAddressShared.addressShared">
+        <type xsi:type="intermediate:IntermediateComplexType" name="AddressShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.AddressShared"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="AddressShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="policy.AddressShared"/>
+      </dataFields>
+    </complexTypes>
+  </contexts>
+</intermediate:IntermediateDataModel>

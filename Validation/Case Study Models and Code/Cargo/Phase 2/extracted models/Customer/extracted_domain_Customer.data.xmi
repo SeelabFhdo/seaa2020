@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ASCII"?>
+<data:DataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data">
+  <contexts name="Customer">
+    <complexTypes xsi:type="data:DataStructure" name="CustomerRepository">
+      <features>REPOSITORY</features>
+      <dataFields name="customer" complexType="//@contexts.0/@complexTypes.2"/>
+      <operations name="findbyname" complexReturnType="//@contexts.0/@complexTypes.2">
+        <parameters name="unnamed">
+          <primitiveType xsi:type="data:PrimitiveString"/>
+        </parameters>
+      </operations>
+      <operations name="findbyCustomerID" complexReturnType="//@contexts.0/@complexTypes.2">
+        <parameters name="unnamed">
+          <primitiveType xsi:type="data:PrimitiveString"/>
+        </parameters>
+      </operations>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="Customer">
+      <features>ENTITY</features>
+      <dataFields name="name"/>
+      <dataFields name="customerID">
+        <features>IDENTIFIER</features>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListCustomer">
+      <dataFields name="customer" complexType="//@contexts.0/@complexTypes.1"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="CustomerShared">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="customerID"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListCustomerShared">
+      <dataFields name="customerShared" complexType="//@contexts.0/@complexTypes.3"/>
+    </complexTypes>
+  </contexts>
+</data:DataModel>

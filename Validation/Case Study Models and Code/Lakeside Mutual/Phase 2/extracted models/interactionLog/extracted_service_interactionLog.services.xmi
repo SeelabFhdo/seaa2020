@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<service:ServiceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:service="de.fhdo.lemma.service">
+  <imports name="interactionLog" importURI="extracted_domain_interactionLog.data"/>
+  <microservices name="interactionLog">
+    <interfaces name="ProvidedTypes"/>
+  </microservices>
+</service:ServiceModel>

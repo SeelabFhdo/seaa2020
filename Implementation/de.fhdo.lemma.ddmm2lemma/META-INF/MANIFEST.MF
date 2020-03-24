@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DDMM2LEMMA
+Bundle-SymbolicName: de.fhdo.lemma.ddmm2lemma;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Vendor: University of Applied Sciences and Arts Dortmund
+Automatic-Module-Name: de.fhdo.lemma.ddmm2lemma
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ org.eclipse.core.commands;bundle-version="3.9.600",
+ org.eclipse.core.resources;bundle-version="3.13.600",
+ org.eclipse.emf.ecore;bundle-version="2.20.0",
+ org.eclipse.m2m.atl.emftvm;bundle-version="4.2.0",
+ org.eclipse.uml2.uml;bundle-version="5.5.0",
+ de.fhdo.lemma.data.datadsl.metamodel;bundle-version="0.0.1",
+ org.eclipse.ui;bundle-version="3.115.0",
+ de.fhdo.lemma.projections;bundle-version="0.0.1",
+ org.eclipse.xtext.ui;bundle-version="2.20.0",
+ org.eclipse.e4.core.di;bundle-version="1.7.500",
+ org.eclipse.e4.core.di.extensions;bundle-version="0.15.400",
+ org.apache.commons.io;bundle-version="2.6.0",
+ de.fhdo.lemma.servicedsl.metamodel;bundle-version="0.0.1"
+Bundle-ActivationPolicy: lazy

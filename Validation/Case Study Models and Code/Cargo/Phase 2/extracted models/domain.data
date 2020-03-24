@@ -1,0 +1,93 @@
+context Cargo {
+	structure CargoRepository <repository> {
+		ListCargo cargo,
+	
+		function ListCargo findbyTrackingID(string unnamed),
+		function ListCargo findbyCustomerID(string unnamed)
+	}
+
+	structure Cargo <entity, aggregate> {
+		unspecified trackingID <identifier>,
+		DeliverySpecification goal <part>,
+		DeliveryHistory deliveryHistory <part>,
+		CustomerShared CustomerShared
+	}
+
+	structure DeliveryHistory <entity> {
+		Cargo cargo,
+		ListHandlingEvent handlingEvent,
+		CarrierMovement carriermovement
+	}
+
+	structure HandlingEvent <entity> {
+		unspecified completiontime <identifier>,
+		unspecified type <identifier>,
+		Cargo handled
+	}
+
+	structure CarrierMovement <entity> {
+		unspecified scheduleID <identifier>
+	}
+
+	structure DeliverySpecification <valueObject> {
+		unspecified arrivaltime
+	}
+
+	list ListCargo {
+		Cargo cargo
+	}
+
+	list ListHandlingEvent {
+		HandlingEvent handlingEvent
+	}
+
+	structure CustomerShared <valueObject> {
+		unspecified customerID
+	}
+
+	list ListCustomerShared {
+		CustomerShared customerShared
+	}
+}
+
+context Customer {
+	structure CustomerRepository <repository> {
+		ListCustomer customer,
+	
+		function ListCustomer findbyname(string unnamed),
+		function ListCustomer findbyCustomerID(string unnamed)
+	}
+
+	structure Customer <entity> {
+		unspecified name,
+		unspecified customerID <identifier>
+	}
+
+	list ListCustomer {
+		Customer customer
+	}
+
+	structure CustomerShared <valueObject> {
+		unspecified customerID
+	}
+
+	list ListCustomerShared {
+		CustomerShared customerShared
+	}
+}
+
+context Location {
+	structure LocationService <service> {
+		ListLocation location,
+	
+		procedure resolvebyportcode(string unnamed)
+	}
+
+	structure Location <entity> {
+		unspecified portcode <identifier>
+	}
+
+	list ListLocation {
+		Location location
+	}
+}

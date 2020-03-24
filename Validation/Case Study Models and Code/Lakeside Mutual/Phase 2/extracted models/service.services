@@ -1,0 +1,29 @@
+import datatypes from "domain.data" as domain
+
+architecture functional microservice ADD_QUALIFYING_PART.customer {
+	interface ProvidedTypes {
+		getCustomerId(sync out customerId : domain::customer.CustomerId);
+		getCustomerId(sync out customerId : domain::customer.CustomerId);
+		getCustomerId(sync out customerId : domain::customer.CustomerId);
+		getCustomerId(sync out customerId : domain::customer.CustomerId);
+		getCustomerId(sync out listCustomerId : domain::customer.ListCustomerId);
+	}
+}
+
+architecture functional microservice ADD_QUALIFYING_PART.city {
+	interface ProvidedTypes {
+		getCitiesForPostalCode(sync postalCode : unspecified, sync out unnamed : domain::city.ListCityShared);
+	}
+}
+
+architecture functional microservice ADD_QUALIFYING_PART.interactionLog {
+	[DEFINE_OPERATIONS]
+}
+
+architecture functional microservice ADD_QUALIFYING_PART.identityAccess {
+	[DEFINE_OPERATIONS]
+}
+
+architecture functional microservice ADD_QUALIFYING_PART.policy {
+	[DEFINE_OPERATIONS]
+}

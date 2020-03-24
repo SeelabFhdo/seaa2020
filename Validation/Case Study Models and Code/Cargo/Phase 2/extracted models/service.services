@@ -1,0 +1,21 @@
+import datatypes from "domain.data" as domain
+
+architecture functional microservice ADD_QUALIFYING_PART.Cargo {
+	interface ProvidedTypes {
+		getDeliverySpecification(sync out deliverySpecification : domain::Cargo.DeliverySpecification);
+	}
+}
+
+architecture functional microservice ADD_QUALIFYING_PART.Customer {
+	interface ProvidedTypes {
+		getCustomer(sync out unnamed : domain::Customer.CustomerShared);
+	}
+}
+
+architecture functional microservice ADD_QUALIFYING_PART.Location {
+	interface ProvidedTypes {
+		getDestination(sync out location : domain::Location.Location);
+		getFrom(sync out location : domain::Location.Location);
+		getTo(sync out location : domain::Location.Location);
+	}
+}

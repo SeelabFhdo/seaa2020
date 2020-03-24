@@ -1,0 +1,258 @@
+context customer {
+	structure CustomerRepository <repository> {
+		ListCustomerAggregateRoot customerAggregateRoot,
+	
+		function CustomerId nextId()
+	}
+
+	structure CustomerFactory <service> {
+		CustomerRepository customerRepository,
+	
+		function CustomerAggregateRoot create(CustomerProfileEntity unnamed),
+		procedure formatPhoneNumber(unspecified phoneNumberStr)
+	}
+
+	structure CustomerService <service> {
+		function CustomerAggregateRoot updateAddress(CustomerId unnamed, Address unnamed1),
+		function CustomerAggregateRoot updateCustomerProfile(CustomerId unnamed, CustomerProfileEntity unnamed1),
+		function CustomerAggregateRoot createCustomer(CustomerProfileEntity unnamed),
+		function ListCustomerAggregateRoot getCustomers(string ids)
+	}
+
+	structure CustomerProfileEntity <entity> {
+		unspecified firstname,
+		unspecified lastname,
+		unspecified birthday,
+		unspecified email,
+		unspecified phoneNumber,
+		Address currentAddress,
+		ListAddress moveHistory,
+	
+		procedure moveToAddress(Address unnamed)
+	}
+
+	structure CustomerAggregateRoot <aggregate, entity> {
+		CustomerId id <identifier, part>,
+		CustomerProfileEntity customerProfile <part>,
+	
+		procedure moveToAddress(Address unnamed),
+		procedure updateCustomerProfile(CustomerProfileEntity unnamed)
+	}
+
+	structure Address <valueObject> {
+		hide immutable unspecified id,
+		immutable unspecified streetAddress,
+		CityShared CityShared
+	}
+
+	structure CustomerId <valueObject> {
+		immutable unspecified id,
+	
+		function CustomerId random()
+	}
+
+	list ListCustomerAggregateRoot {
+		CustomerAggregateRoot customerAggregateRoot
+	}
+
+	list ListAddress {
+		Address address
+	}
+
+	structure CityShared <valueObject> {
+		unspecified name,
+		unspecified postalCode
+	}
+
+	structure CustomerShared <valueObject> {
+		unspecified customerId,
+		CustomerProfileShared customerProfile
+	}
+
+	structure CustomerProfileShared <valueObject> {
+		unspecified firstname,
+		unspecified lastname,
+		unspecified birthday,
+		unspecified email,
+		unspecified phoneNumber,
+		AddressShared address,
+		ListAddressShared moveHistory
+	}
+
+	structure AddressShared <valueObject> {
+		unspecified streetAddress,
+		unspecified postalCode,
+		unspecified city
+	}
+
+	list ListAddressShared {
+		ListAddressShared addressShared
+	}
+
+	list ListCustomerId {
+		CustomerId customerId
+	}
+}
+
+context city {
+	structure City <valueObject> {
+		immutable unspecified name,
+		immutable unspecified postalCode
+	}
+
+	structure CityShared <valueObject> {
+		unspecified name,
+		unspecified postalCode
+	}
+
+	list ListCityShared {
+		ListCityShared cityShared
+	}
+}
+
+context interactionLog {
+	structure InteractionLogRepository <repository> {
+		ListInteractionLogAggregateRoot interactions
+	}
+
+	structure InteractionLogService <service> {
+		InteractionLogRepository ^repository,
+	
+		function ListNotification getNotifications()
+	}
+
+	structure InteractionEntity <entity> {
+		unspecified id <identifier>,
+		unspecified ^date,
+		unspecified content,
+		unspecified sentByOperator
+	}
+
+	structure InteractionLogAggregateRoot <aggregate, entity> {
+		unspecified username,
+		unspecified lastAcknowledgedInteractionId,
+		ListInteractionEntity interactions,
+	
+		function int getNumberOfUnacknowledgedInteractions()
+	}
+
+	structure Notification <valueObject> {
+		immutable unspecified username,
+		immutable unspecified count
+	}
+
+	list ListInteractionLogAggregateRoot {
+		InteractionLogAggregateRoot interactionLogAggregateRoot
+	}
+
+	list ListNotification {
+		Notification notification
+	}
+
+	list ListInteractionEntity {
+		InteractionEntity interactionEntity
+	}
+}
+
+context identityAccess {
+	structure UserLoginRepository <repository> {
+		unspecified id,
+		UserLogin login,
+	
+		function UserLogin findByEmail(unspecified email)
+	}
+
+	structure UserDetailsService <service> {
+		UserLoginRepository ^repository,
+	
+		function UserDetails loadUserByUsername(string unnamed)
+	}
+
+	structure UserLogin <entity> {
+		unspecified id <identifier>,
+		unspecified authorities,
+		unspecified email,
+		unspecified password
+	}
+
+	structure UserSecurityDetails <entity> {
+		unspecified id <identifier>,
+		unspecified accountNonExpired,
+		unspecified accountNonLocked,
+		unspecified credentialsNonExpired,
+		unspecified email,
+		unspecified enabled,
+		unspecified password,
+		ListString authorities
+	}
+
+	structure UserDetails <valueObject> {
+		immutable unspecified email
+	}
+
+	list ListString {
+		string
+	}
+}
+
+context policy {
+	structure RiskManagementService <service> {
+		function PolicyEvent notifyRiskManagement(unspecified originator, unspecified ^date, CustomerShared customer, PolicyAggregateRoot policy)
+	}
+
+	structure InsuringAgreementEntity <entity> {
+		unspecified id <identifier>,
+		ListInsuringAgreementItem items
+	}
+
+	structure PolicyAggregateRoot <aggregate, entity> {
+		unspecified creationDate,
+		PolicyId id <identifier, part>,
+		PolicyPeriod policyPeriod <part>,
+		PolicyType policyType <part>,
+		MoneyAmount policyLimit <part>,
+		MoneyAmount insurancePremium <part>,
+		InsuringAgreementEntity insuringAgreement
+	}
+
+	structure InsuringAgreementItem <valueObject> {
+		immutable unspecified id,
+		immutable unspecified title,
+		immutable unspecified description
+	}
+
+	structure MoneyAmount <valueObject> {
+		immutable unspecified amount,
+		immutable unspecified currency
+	}
+
+	structure PolicyId <valueObject> {
+		immutable unspecified id,
+	
+		function PolicyId random()
+	}
+
+	structure PolicyPeriod <valueObject> {
+		immutable unspecified startDate,
+		immutable unspecified endDate
+	}
+
+	structure PolicyType <valueObject> {
+		immutable unspecified name
+	}
+
+	structure PolicyEvent <valueObject> {
+		immutable unspecified originator,
+		immutable unspecified ^date,
+		CustomerShared CustomerShared
+	}
+
+	list ListInsuringAgreementItem {
+		InsuringAgreementItem insuringAgreementItem
+	}
+
+	structure CustomerShared <valueObject> {
+		unspecified customerId,
+		unspecified customerProfile
+	}
+}

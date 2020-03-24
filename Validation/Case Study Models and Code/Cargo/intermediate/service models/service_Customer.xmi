@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateServiceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/service/intermediate" xmlns:intermediate_1="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/Phase 3/Customer/service_Customer.services">
+  <imports name="customer" importUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/intermediate/data models/domain_Customer.xmi" importTypeName="DATATYPES"/>
+  <microservices sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/Phase 3/Customer/service_Customer.services" name="org.example.customer.Customer" qualifiedName="org.example.customer.Customer" visibility="ARCHITECTURE" effectivelyImplemented="true">
+    <interfaces name="ProvidedTypes" qualifiedName="org.example.customer.Customer.ProvidedTypes" visibility="ARCHITECTURE" hasImplementedOperations="true">
+      <operations name="getCustomer" qualifiedName="org.example.customer.Customer.ProvidedTypes.getCustomer" visibility="ARCHITECTURE">
+        <parameters name="unspecified" qualifiedName="org.example.customer.Customer.ProvidedTypes.getCustomer.unspecified" exchangePattern="OUT">
+          <type xsi:type="intermediate_1:IntermediateImportedComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Customer.CustomerShared" import="//@imports.0"/>
+        </parameters>
+      </operations>
+    </interfaces>
+  </microservices>
+</intermediate:IntermediateServiceModel>

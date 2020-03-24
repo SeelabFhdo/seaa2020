@@ -1,0 +1,29 @@
+import datatypes from "domain.data" as domain
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.Cargo --> microservice org.example.cargo.Cargo {
+architecture functional microservice org.example.cargo.Cargo {
+	interface ProvidedTypes {
+		getDeliverySpecification(sync out deliverySpecification : domain::Cargo.DeliverySpecification);
+	}
+}
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.Customer --> microservice org.example.customer.Customer {
+architecture functional microservice org.example.customer.Customer {
+	interface ProvidedTypes {
+		// A8: Assign concrete names to parameters
+		//		sync out unnamed --> sync out customer
+		getCustomer(sync out customer : domain::Customer.CustomerShared);
+	}
+}
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.Location --> microservice org.example.location.Location {
+architecture functional microservice org.example.location.Location {
+	interface ProvidedTypes {
+		getDestination(sync out location : domain::Location.Location);
+		getFrom(sync out location : domain::Location.Location);
+		getTo(sync out location : domain::Location.Location);
+	}
+}

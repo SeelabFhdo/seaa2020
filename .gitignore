@@ -1,0 +1,9 @@
+.metadata/
+bin/
+Analyzer/
+Validation Eclipse 2019-12/
+*.xtendbin
+*.java._trace
+*.ods
+target/
+dropins.zip

@@ -1,0 +1,5 @@
+import datatypes from "extracted_domain_policy.data" as policy
+
+architecture functional microservice ADD_QUALIFYING_PART.policy {
+	[DEFINE_OPERATIONS]
+}

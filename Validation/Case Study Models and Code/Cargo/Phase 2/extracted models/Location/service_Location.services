@@ -1,0 +1,9 @@
+import datatypes from "domain_Location.data" as location
+
+architecture functional microservice ADD_QUALIFYING_PART.Location {
+	interface ProvidedTypes {
+		getFrom(sync out location : location::Location.Location);
+		getTo(sync out location : location::Location.Location);
+		getDestination(sync out location : location::Location.Location);
+	}
+}

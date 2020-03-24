@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateDataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/Phase 3/city/domain_city.data">
+  <contexts name="city" qualifiedName="city">
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="City" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="city.City">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="name" qualifiedName="city.City.name" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="postalCode" qualifiedName="city.City.postalCode" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="CityShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="city.CityShared">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="name" qualifiedName="city.CityShared.name">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="postalCode" qualifiedName="city.CityShared.postalCode">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListCityShared" origin="DATA_MODEL" kind="LIST" qualifiedName="city.ListCityShared" structuredList="true">
+      <dataFields name="cityShared" qualifiedName="city.ListCityShared.cityShared">
+        <type xsi:type="intermediate:IntermediateComplexType" name="CityShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="city.CityShared"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="CityShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="city.CityShared"/>
+      </dataFields>
+    </complexTypes>
+  </contexts>
+</intermediate:IntermediateDataModel>

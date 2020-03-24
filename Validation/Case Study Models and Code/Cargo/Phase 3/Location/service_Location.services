@@ -1,0 +1,11 @@
+import datatypes from "domain_Location.data" as location
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.Location --> microservice org.example.location.Location {
+architecture functional microservice org.example.location.Location {
+	interface ProvidedTypes {
+		getDestination(sync out location : location::Location.Location);
+		getFrom(sync out location : location::Location.Location);
+		getTo(sync out location : location::Location.Location);
+	}
+}

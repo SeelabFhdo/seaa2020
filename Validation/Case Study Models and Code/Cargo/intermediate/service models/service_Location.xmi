@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateServiceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/service/intermediate" xmlns:intermediate_1="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/Phase 3/Location/service_Location.services">
+  <imports name="location" importUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/intermediate/data models/domain_Location.xmi" importTypeName="DATATYPES"/>
+  <microservices sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/Phase 3/Location/service_Location.services" name="org.example.location.Location" qualifiedName="org.example.location.Location" visibility="ARCHITECTURE" effectivelyImplemented="true">
+    <interfaces name="ProvidedTypes" qualifiedName="org.example.location.Location.ProvidedTypes" visibility="ARCHITECTURE" hasImplementedOperations="true">
+      <operations name="getDestination" qualifiedName="org.example.location.Location.ProvidedTypes.getDestination" visibility="ARCHITECTURE">
+        <parameters name="location" qualifiedName="org.example.location.Location.ProvidedTypes.getDestination.location" exchangePattern="OUT">
+          <type xsi:type="intermediate_1:IntermediateImportedComplexType" name="Location" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Location.Location" import="//@imports.0"/>
+        </parameters>
+      </operations>
+      <operations name="getFrom" qualifiedName="org.example.location.Location.ProvidedTypes.getFrom" visibility="ARCHITECTURE">
+        <parameters name="location" qualifiedName="org.example.location.Location.ProvidedTypes.getFrom.location" exchangePattern="OUT">
+          <type xsi:type="intermediate_1:IntermediateImportedComplexType" name="Location" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Location.Location" import="//@imports.0"/>
+        </parameters>
+      </operations>
+      <operations name="getTo" qualifiedName="org.example.location.Location.ProvidedTypes.getTo" visibility="ARCHITECTURE">
+        <parameters name="location" qualifiedName="org.example.location.Location.ProvidedTypes.getTo.location" exchangePattern="OUT">
+          <type xsi:type="intermediate_1:IntermediateImportedComplexType" name="Location" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Location.Location" import="//@imports.0"/>
+        </parameters>
+      </operations>
+    </interfaces>
+  </microservices>
+</intermediate:IntermediateServiceModel>

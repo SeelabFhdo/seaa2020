@@ -1,0 +1,11 @@
+import datatypes from "domain_Customer.data" as customer
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.Customer --> microservice org.example.customer.Customer {
+architecture functional microservice org.example.customer.Customer {
+	interface ProvidedTypes {
+		// A8: Assign concrete names to parameters
+		//		sync out unnamed --> sync out customer
+		getCustomer(sync out customer : customer::Customer.CustomerShared);
+	}
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateServiceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/service/intermediate" xmlns:intermediate_1="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="">
+  <imports name="services" importUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/intermediate/service models/service_Cargo.xmi" importTypeName="MICROSERVICES"/>
+  <imports name="java" importUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/Phase 4/java.technology" importTypeName="TECHNOLOGY"/>
+  <imports name="cargo" importUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/intermediate/data models/domain_Cargo.xmi" importTypeName="DATATYPES"/>
+  <microservices sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/Phase 3/Cargo/service_Cargo.services" name="org.example.cargo.Cargo" qualifiedName="org.example.cargo.Cargo" visibility="ARCHITECTURE" effectivelyImplemented="true">
+    <technologies name="java" import="//@imports.1"/>
+    <protocols protocol="rest" dataFormat="json"/>
+    <protocols communicationType="ASYNCHRONOUS" protocol="amqp" dataFormat="json"/>
+    <interfaces name="ProvidedTypes" qualifiedName="org.example.cargo.Cargo.ProvidedTypes" visibility="ARCHITECTURE" hasImplementedOperations="true">
+      <endpoints protocol="rest" dataFormat="json" technology="//@microservices.0/@technologies.0">
+        <addresses>cargo</addresses>
+      </endpoints>
+      <protocols protocol="rest" dataFormat="json"/>
+      <protocols communicationType="ASYNCHRONOUS" protocol="amqp" dataFormat="json"/>
+      <operations name="getDeliverySpecification" qualifiedName="org.example.cargo.Cargo.ProvidedTypes.getDeliverySpecification" visibility="ARCHITECTURE">
+        <endpoints protocol="rest" dataFormat="json" technology="//@microservices.0/@technologies.0">
+          <addresses>delivery</addresses>
+        </endpoints>
+        <protocols protocol="rest" dataFormat="json"/>
+        <protocols communicationType="ASYNCHRONOUS" protocol="amqp" dataFormat="json"/>
+        <aspects name="GetMapping" qualifiedName="java.GetMapping" import="//@imports.1"/>
+        <parameters name="deliverySpecification" qualifiedName="org.example.cargo.Cargo.ProvidedTypes.getDeliverySpecification.deliverySpecification" exchangePattern="OUT">
+          <type xsi:type="intermediate_1:IntermediateImportedComplexType" name="DeliverySpecification" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.DeliverySpecification" import="//@imports.2"/>
+        </parameters>
+      </operations>
+    </interfaces>
+    <aspects name="CustomProperty" qualifiedName="java.CustomProperty" import="//@imports.1">
+      <properties name="name" type="string">
+        <featureNames>MANDATORY</featureNames>
+      </properties>
+      <properties name="value" type="string">
+        <featureNames>MANDATORY</featureNames>
+      </properties>
+      <propertyValues value="server.port" property="//@microservices.0/@aspects.0/@properties.0"/>
+      <propertyValues value="8080" property="//@microservices.0/@aspects.0/@properties.1"/>
+    </aspects>
+  </microservices>
+</intermediate:IntermediateServiceModel>

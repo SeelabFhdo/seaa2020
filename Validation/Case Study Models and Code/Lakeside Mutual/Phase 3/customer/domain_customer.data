@@ -1,0 +1,170 @@
+context customer {
+	structure CustomerRepository <repository> {
+		ListCustomerAggregateRoot customerAggregateRoot,
+
+		function CustomerId nextId()
+	}
+
+	structure CustomerFactory <service> {
+		CustomerRepository customerRepository,
+
+		// A3: Assign concrete names to parameters
+		//		CustomerProfileEntity unnamed --> CustomerProfileEntity profile
+		function CustomerAggregateRoot create(CustomerProfileEntity profile),
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified phoneNumberStr --> string phoneNumberStr
+		procedure formatPhoneNumber(string phoneNumberStr)
+	}
+
+	structure CustomerService <service> {
+		// A3: Assign concrete names to parameters
+		//		CustomerId unnamed --> CustomerId customerId
+		function CustomerAggregateRoot updateAddress(CustomerId customerId, Address unspecified1),
+		
+		// A3: Assign concrete names to parameters
+		//		CustomerId unnamed --> CustomerId customerId
+		function CustomerAggregateRoot updateCustomerProfile(CustomerId customerId, CustomerProfileEntity unspecified1),
+		
+		// A3: Assign concrete names to parameters
+		//		CustomerProfileEntity unnamed --> CustomerProfileEntity profile
+		function CustomerAggregateRoot createCustomer(CustomerProfileEntity profile),
+		
+		function ListCustomerAggregateRoot getCustomers(string ids)
+	}
+
+	structure CustomerProfileEntity <entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified firstname --> string firstname
+		string firstname,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified lastname --> string lastname
+		string lastname,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified birthday --> date birthday
+		date birthday,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		string email,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified phoneNumber --> string phoneNumber
+		string phoneNumber,
+
+		Address currentAddress,
+		ListAddress moveHistory,
+
+		// A3: Assign concrete names to parameters
+		//		Address unnamed --> Address address	
+		procedure moveToAddress(Address address)
+	}
+
+	structure CustomerAggregateRoot <aggregate, entity> {
+		CustomerId id <identifier, part>,
+		CustomerProfileEntity customerProfile <part>,
+
+		// A3: Assign concrete names to parameters
+		//		Address unnamed --> Address address
+		procedure moveToAddress(Address address),
+		
+		// A3: Assign concrete names to parameters
+		//		CustomerProfileEntity unnamed --> CustomerProfileEntity profile
+		procedure updateCustomerProfile(CustomerProfileEntity profile)
+	}
+
+	structure Address <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		hide immutable unspecified id --> hide immutable long id
+		// A2: Specify default value for hidden immutable fields
+		//		hide immutable long id, --> hide immutable long id = 0,
+		hide immutable long id = 0,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified streetAddress --> immutable string streetAddress
+		immutable string streetAddress,
+		CityShared CityShared
+	}
+
+	structure CustomerId <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified id --> immutable long id
+		immutable long id,
+
+		function CustomerId random()
+	}
+
+	list ListCustomerAggregateRoot {
+		CustomerAggregateRoot customerAggregateRoot
+	}
+
+	list ListAddress {
+		Address address
+	}
+
+	structure CityShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified name --> string name
+		string name,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified postalCode --> string postalCode
+		string postalCode
+	}
+
+	structure CustomerShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified customerId --> string customerId
+		long customerId,
+		CustomerProfileShared customerProfile
+	}
+
+	structure CustomerProfileShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified firstname --> string firstname
+		string firstname,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified lastname --> string lastname
+		string lastname,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified birthday --> date birthday
+		date birthday,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		string email,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified phoneNumber --> string phoneNumber
+		string phoneNumber,
+
+		AddressShared address,
+		ListAddressShared moveHistory
+	}
+
+	structure AddressShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified streetAddress --> string streetAddress
+		string streetAddress,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified postalCode --> string postalCode
+		string postalCode,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified city --> string city
+		string city
+	}
+
+	list ListCustomerId {
+		CustomerId customerId
+	}
+
+	list ListAddressShared {
+		AddressShared addressShared
+	}
+}

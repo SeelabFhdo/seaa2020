@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ASCII"?>
+<data:DataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data">
+  <contexts name="Cargo">
+    <complexTypes xsi:type="data:DataStructure" name="CargoRepository">
+      <features>REPOSITORY</features>
+      <dataFields name="cargo" complexType="//@contexts.0/@complexTypes.6"/>
+      <operations name="findbyTrackingID" complexReturnType="//@contexts.0/@complexTypes.6">
+        <parameters name="unnamed">
+          <primitiveType xsi:type="data:PrimitiveString"/>
+        </parameters>
+      </operations>
+      <operations name="findbyCustomerID" complexReturnType="//@contexts.0/@complexTypes.6">
+        <parameters name="unnamed">
+          <primitiveType xsi:type="data:PrimitiveString"/>
+        </parameters>
+      </operations>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="Cargo">
+      <features>ENTITY</features>
+      <features>AGGREGATE</features>
+      <dataFields name="trackingID">
+        <features>IDENTIFIER</features>
+      </dataFields>
+      <dataFields name="goal" complexType="//@contexts.0/@complexTypes.5">
+        <features>PART</features>
+      </dataFields>
+      <dataFields name="deliveryHistory" complexType="//@contexts.0/@complexTypes.2">
+        <features>PART</features>
+      </dataFields>
+      <dataFields name="CustomerShared" complexType="//@contexts.0/@complexTypes.8"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="DeliveryHistory">
+      <features>ENTITY</features>
+      <dataFields name="cargo" complexType="//@contexts.0/@complexTypes.1"/>
+      <dataFields name="handlingEvent" complexType="//@contexts.0/@complexTypes.7"/>
+      <dataFields name="carriermovement" complexType="//@contexts.0/@complexTypes.4"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="HandlingEvent">
+      <features>ENTITY</features>
+      <dataFields name="completiontime">
+        <features>IDENTIFIER</features>
+      </dataFields>
+      <dataFields name="type">
+        <features>IDENTIFIER</features>
+      </dataFields>
+      <dataFields name="handled" complexType="//@contexts.0/@complexTypes.1"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="CarrierMovement">
+      <features>ENTITY</features>
+      <dataFields name="scheduleID">
+        <features>IDENTIFIER</features>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="DeliverySpecification">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="arrivaltime"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListCargo">
+      <dataFields name="cargo" complexType="//@contexts.0/@complexTypes.1"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListHandlingEvent">
+      <dataFields name="handlingEvent" complexType="//@contexts.0/@complexTypes.3"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="CustomerShared">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="customerID"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListCustomerShared">
+      <dataFields name="customerShared" complexType="//@contexts.0/@complexTypes.8"/>
+    </complexTypes>
+  </contexts>
+</data:DataModel>

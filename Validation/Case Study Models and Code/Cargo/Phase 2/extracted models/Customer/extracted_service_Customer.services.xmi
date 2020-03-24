@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<service:ServiceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data" xmlns:service="de.fhdo.lemma.service">
+  <imports name="customer" importURI="extracted_domain_Customer.data"/>
+  <microservices name="Customer">
+    <interfaces name="ProvidedTypes">
+      <operations name="getCustomer">
+        <parameters name="unnamed" exchangePattern="OUT">
+          <importedType import="//@imports.0">
+            <type xsi:type="data:DataStructure" href="/Cargo/extracted models/Customer/extracted_domain_Customer.data.xmi#//@contexts.0/@complexTypes.3"/>
+          </importedType>
+        </parameters>
+      </operations>
+    </interfaces>
+  </microservices>
+</service:ServiceModel>

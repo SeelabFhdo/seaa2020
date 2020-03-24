@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateDataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/Phase 3/Cargo/domain_Cargo.data">
+  <contexts name="Cargo" qualifiedName="Cargo">
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="CargoRepository" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.CargoRepository">
+      <featureNames>REPOSITORY</featureNames>
+      <operations name="findbyTrackingID" qualifiedName="Cargo.CargoRepository.findbyTrackingID">
+        <returnType>
+          <type xsi:type="intermediate:IntermediateComplexType" name="ListCargo" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListCargo"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="ListCargo" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListCargo"/>
+        </returnType>
+        <parameters name="unspecified" qualifiedName="Cargo.CargoRepository.findbyTrackingID.unspecified">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+      </operations>
+      <operations name="findbyCustomerID" qualifiedName="Cargo.CargoRepository.findbyCustomerID">
+        <returnType>
+          <type xsi:type="intermediate:IntermediateComplexType" name="ListCargo" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListCargo"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="ListCargo" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListCargo"/>
+        </returnType>
+        <parameters name="unspecified" qualifiedName="Cargo.CargoRepository.findbyCustomerID.unspecified">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+      </operations>
+      <dataFields name="cargo" qualifiedName="Cargo.CargoRepository.cargo">
+        <type xsi:type="intermediate:IntermediateComplexType" name="ListCargo" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListCargo"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="ListCargo" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListCargo"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="Cargo" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.Cargo">
+      <featureNames>AGGREGATE</featureNames>
+      <featureNames>ENTITY</featureNames>
+      <operations name="findbyTrackingID" qualifiedName="Cargo.Cargo.findbyTrackingID">
+        <parameters name="unspecified" qualifiedName="Cargo.Cargo.findbyTrackingID.unspecified">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+      </operations>
+      <operations name="findbyCustomerID" qualifiedName="Cargo.Cargo.findbyCustomerID">
+        <parameters name="unspecified" qualifiedName="Cargo.Cargo.findbyCustomerID.unspecified">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+      </operations>
+      <dataFields name="trackingID" qualifiedName="Cargo.Cargo.trackingID">
+        <featureNames>IDENTIFIER</featureNames>
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="goal" qualifiedName="Cargo.Cargo.goal">
+        <featureNames>PART</featureNames>
+        <type xsi:type="intermediate:IntermediateComplexType" name="DeliverySpecification" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.DeliverySpecification"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="DeliverySpecification" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.DeliverySpecification"/>
+      </dataFields>
+      <dataFields name="deliveryHistory" qualifiedName="Cargo.Cargo.deliveryHistory">
+        <featureNames>PART</featureNames>
+        <type xsi:type="intermediate:IntermediateComplexType" name="DeliveryHistory" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.DeliveryHistory"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="DeliveryHistory" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.DeliveryHistory"/>
+      </dataFields>
+      <dataFields name="CustomerShared" qualifiedName="Cargo.Cargo.CustomerShared">
+        <type xsi:type="intermediate:IntermediateComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.CustomerShared"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.CustomerShared"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="DeliveryHistory" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.DeliveryHistory">
+      <featureNames>ENTITY</featureNames>
+      <dataFields name="cargo" qualifiedName="Cargo.DeliveryHistory.cargo">
+        <type xsi:type="intermediate:IntermediateComplexType" name="Cargo" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.Cargo"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="Cargo" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.Cargo"/>
+      </dataFields>
+      <dataFields name="handlingEvent" qualifiedName="Cargo.DeliveryHistory.handlingEvent">
+        <type xsi:type="intermediate:IntermediateComplexType" name="ListHandlingEvent" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListHandlingEvent"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="ListHandlingEvent" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListHandlingEvent"/>
+      </dataFields>
+      <dataFields name="carriermovement" qualifiedName="Cargo.DeliveryHistory.carriermovement">
+        <type xsi:type="intermediate:IntermediateComplexType" name="CarrierMovement" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.CarrierMovement"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="CarrierMovement" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.CarrierMovement"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="HandlingEvent" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.HandlingEvent">
+      <featureNames>ENTITY</featureNames>
+      <dataFields name="completiontime" qualifiedName="Cargo.HandlingEvent.completiontime">
+        <featureNames>IDENTIFIER</featureNames>
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="type" qualifiedName="Cargo.HandlingEvent.type">
+        <featureNames>IDENTIFIER</featureNames>
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="handled" qualifiedName="Cargo.HandlingEvent.handled">
+        <type xsi:type="intermediate:IntermediateComplexType" name="Cargo" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.Cargo"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="Cargo" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.Cargo"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="CarrierMovement" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.CarrierMovement">
+      <featureNames>ENTITY</featureNames>
+      <dataFields name="scheduleID" qualifiedName="Cargo.CarrierMovement.scheduleID">
+        <featureNames>IDENTIFIER</featureNames>
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="DeliverySpecification" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.DeliverySpecification">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="arrivaltime" qualifiedName="Cargo.DeliverySpecification.arrivaltime">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.CustomerShared">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="customerID" qualifiedName="Cargo.CustomerShared.customerID">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListCargo" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListCargo" structuredList="true">
+      <dataFields name="cargo" qualifiedName="Cargo.ListCargo.cargo">
+        <type xsi:type="intermediate:IntermediateComplexType" name="Cargo" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.Cargo"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="Cargo" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.Cargo"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListHandlingEvent" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListHandlingEvent" structuredList="true">
+      <dataFields name="handlingEvent" qualifiedName="Cargo.ListHandlingEvent.handlingEvent">
+        <type xsi:type="intermediate:IntermediateComplexType" name="HandlingEvent" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.HandlingEvent"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="HandlingEvent" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.HandlingEvent"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListCustomerShared" origin="DATA_MODEL" kind="LIST" qualifiedName="Cargo.ListCustomerShared" structuredList="true">
+      <dataFields name="customerShared" qualifiedName="Cargo.ListCustomerShared.customerShared">
+        <type xsi:type="intermediate:IntermediateComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.CustomerShared"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Cargo.CustomerShared"/>
+      </dataFields>
+    </complexTypes>
+  </contexts>
+</intermediate:IntermediateDataModel>

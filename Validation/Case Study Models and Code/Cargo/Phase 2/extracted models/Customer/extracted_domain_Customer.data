@@ -1,0 +1,25 @@
+context Customer {
+	structure CustomerRepository <repository> {
+		ListCustomer customer,
+	
+		function ListCustomer findbyname(string unnamed),
+		function ListCustomer findbyCustomerID(string unnamed)
+	}
+
+	structure Customer <entity> {
+		unspecified name,
+		unspecified customerID <identifier>
+	}
+
+	list ListCustomer {
+		Customer customer
+	}
+
+	structure CustomerShared <valueObject> {
+		unspecified customerID
+	}
+
+	list ListCustomerShared {
+		CustomerShared customerShared
+	}
+}

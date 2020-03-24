@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data">
+  <data:DataModel>
+    <contexts name="identityAccess">
+      <complexTypes xsi:type="data:DataStructure" name="UserLoginRepository">
+        <features>REPOSITORY</features>
+        <dataFields name="id"/>
+        <dataFields name="login" complexType="/0/@contexts.0/@complexTypes.2"/>
+        <operations name="findByEmail" complexReturnType="/0/@contexts.0/@complexTypes.2">
+          <parameters name="email"/>
+        </operations>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="UserDetailsService">
+        <features>SERVICE</features>
+        <dataFields name="^repository" complexType="/0/@contexts.0/@complexTypes.0"/>
+        <operations name="loadUserByUsername" complexReturnType="/0/@contexts.0/@complexTypes.4">
+          <parameters name="unnamed">
+            <primitiveType xsi:type="data:PrimitiveString"/>
+          </parameters>
+        </operations>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="UserLogin">
+        <features>ENTITY</features>
+        <dataFields name="id">
+          <features>IDENTIFIER</features>
+        </dataFields>
+        <dataFields name="authorities"/>
+        <dataFields name="email"/>
+        <dataFields name="password"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="UserSecurityDetails">
+        <features>ENTITY</features>
+        <dataFields name="id">
+          <features>IDENTIFIER</features>
+        </dataFields>
+        <dataFields name="accountNonExpired"/>
+        <dataFields name="accountNonLocked"/>
+        <dataFields name="credentialsNonExpired"/>
+        <dataFields name="email"/>
+        <dataFields name="enabled"/>
+        <dataFields name="password"/>
+        <dataFields name="authorities" complexType="/0/@contexts.0/@complexTypes.5"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="UserDetails">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="email" immutable="true"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListString">
+        <primitiveType xsi:type="data:PrimitiveString"/>
+      </complexTypes>
+    </contexts>
+  </data:DataModel>
+  <data:PrimitiveString/>
+</xmi:XMI>

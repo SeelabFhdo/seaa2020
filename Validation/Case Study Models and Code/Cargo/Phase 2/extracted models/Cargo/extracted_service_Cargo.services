@@ -1,0 +1,7 @@
+import datatypes from "extracted_domain_Cargo.data" as cargo
+
+architecture functional microservice ADD_QUALIFYING_PART.Cargo {
+	interface ProvidedTypes {
+		getDeliverySpecification(sync out deliverySpecification : cargo::Cargo.DeliverySpecification);
+	}
+}

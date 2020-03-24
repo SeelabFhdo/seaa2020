@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateDataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/Phase 3/interactionLog/domain_interactionLog.data">
+  <contexts name="interactionLog" qualifiedName="interactionLog">
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="InteractionLogRepository" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.InteractionLogRepository">
+      <featureNames>REPOSITORY</featureNames>
+      <dataFields name="interactions" qualifiedName="interactionLog.InteractionLogRepository.interactions">
+        <type xsi:type="intermediate:IntermediateComplexType" name="ListInteractionLogAggregateRoot" origin="DATA_MODEL" kind="LIST" qualifiedName="interactionLog.ListInteractionLogAggregateRoot"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="ListInteractionLogAggregateRoot" origin="DATA_MODEL" kind="LIST" qualifiedName="interactionLog.ListInteractionLogAggregateRoot"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="InteractionLogService" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.InteractionLogService">
+      <featureNames>SERVICE</featureNames>
+      <operations name="getNotifications" qualifiedName="interactionLog.InteractionLogService.getNotifications">
+        <returnType>
+          <type xsi:type="intermediate:IntermediateComplexType" name="ListNotification" origin="DATA_MODEL" kind="LIST" qualifiedName="interactionLog.ListNotification"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="ListNotification" origin="DATA_MODEL" kind="LIST" qualifiedName="interactionLog.ListNotification"/>
+        </returnType>
+      </operations>
+      <dataFields name="repository" qualifiedName="interactionLog.InteractionLogService.repository">
+        <type xsi:type="intermediate:IntermediateComplexType" name="InteractionLogRepository" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.InteractionLogRepository"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="InteractionLogRepository" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.InteractionLogRepository"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="InteractionEntity" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.InteractionEntity">
+      <featureNames>ENTITY</featureNames>
+      <dataFields name="id" qualifiedName="interactionLog.InteractionEntity.id">
+        <featureNames>IDENTIFIER</featureNames>
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="date" qualifiedName="interactionLog.InteractionEntity.date">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="date" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="content" qualifiedName="interactionLog.InteractionEntity.content">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="sentByOperator" qualifiedName="interactionLog.InteractionEntity.sentByOperator">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="boolean" origin="BUILTIN" kind="PRIMITIVE" size="1"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="boolean" origin="BUILTIN" kind="PRIMITIVE" size="1"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="InteractionLogAggregateRoot" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.InteractionLogAggregateRoot">
+      <featureNames>AGGREGATE</featureNames>
+      <featureNames>ENTITY</featureNames>
+      <operations name="getNumberOfUnacknowledgedInteractions" qualifiedName="interactionLog.InteractionLogAggregateRoot.getNumberOfUnacknowledgedInteractions">
+        <returnType>
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="int" origin="BUILTIN" kind="PRIMITIVE" size="32"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="int" origin="BUILTIN" kind="PRIMITIVE" size="32"/>
+        </returnType>
+      </operations>
+      <dataFields name="username" qualifiedName="interactionLog.InteractionLogAggregateRoot.username">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="lastAcknowledgedInteractionId" qualifiedName="interactionLog.InteractionLogAggregateRoot.lastAcknowledgedInteractionId">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="interactions" qualifiedName="interactionLog.InteractionLogAggregateRoot.interactions">
+        <type xsi:type="intermediate:IntermediateComplexType" name="ListInteractionEntity" origin="DATA_MODEL" kind="LIST" qualifiedName="interactionLog.ListInteractionEntity"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="ListInteractionEntity" origin="DATA_MODEL" kind="LIST" qualifiedName="interactionLog.ListInteractionEntity"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="Notification" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.Notification">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="username" qualifiedName="interactionLog.Notification.username" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="count" qualifiedName="interactionLog.Notification.count" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="int" origin="BUILTIN" kind="PRIMITIVE" size="32"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="int" origin="BUILTIN" kind="PRIMITIVE" size="32"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListInteractionLogAggregateRoot" origin="DATA_MODEL" kind="LIST" qualifiedName="interactionLog.ListInteractionLogAggregateRoot" structuredList="true">
+      <dataFields name="interactionLogAggregateRoot" qualifiedName="interactionLog.ListInteractionLogAggregateRoot.interactionLogAggregateRoot">
+        <type xsi:type="intermediate:IntermediateComplexType" name="InteractionLogAggregateRoot" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.InteractionLogAggregateRoot"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="InteractionLogAggregateRoot" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.InteractionLogAggregateRoot"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListNotification" origin="DATA_MODEL" kind="LIST" qualifiedName="interactionLog.ListNotification" structuredList="true">
+      <dataFields name="notification" qualifiedName="interactionLog.ListNotification.notification">
+        <type xsi:type="intermediate:IntermediateComplexType" name="Notification" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.Notification"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="Notification" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.Notification"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListInteractionEntity" origin="DATA_MODEL" kind="LIST" qualifiedName="interactionLog.ListInteractionEntity" structuredList="true">
+      <dataFields name="interactionEntity" qualifiedName="interactionLog.ListInteractionEntity.interactionEntity">
+        <type xsi:type="intermediate:IntermediateComplexType" name="InteractionEntity" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.InteractionEntity"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="InteractionEntity" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="interactionLog.InteractionEntity"/>
+      </dataFields>
+    </complexTypes>
+  </contexts>
+</intermediate:IntermediateDataModel>

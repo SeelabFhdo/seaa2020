@@ -1,0 +1,259 @@
+-- @atlcompiler emftvm
+library "helpers";
+
+helper context String def : toLowerFirst() : String =
+	if (self.empty()) then
+		''
+	else if (self.size() = 1) then
+		self.toLower()
+	else
+		let firstChar : String = self.substring(1, 1) in
+		let otherChars : String = self.substring(2, self.size()) in
+		firstChar.toLower().concat(otherChars)
+	endif
+	endif
+;
+
+helper context String def : toUpperFirst() : String =
+	if (self.empty()) then
+		''
+	else if (self.size() = 1) then
+		self.toUpper()
+	else
+		let firstChar : String = self.substring(1, 1) in
+		let otherChars : String = self.substring(2, self.size()) in
+		firstChar.toUpper().concat(otherChars)
+	endif
+	endif
+;
+
+helper context String def : empty() : Boolean = self.size() = 0;
+
+helper def : qualifiedComplexTypeName(ctx : String, type : String) : String =
+	ctx.concat('::').concat(type)
+;
+
+helper context String def : lemmaListName() : String =
+	'List'.concat(self.lemmaName(false))
+;
+
+helper context Domain!PrimitiveType def : lemmaListName() : String =
+	self.typeName.toUpperFirst().lemmaListName()
+;
+
+helper context String def : lemmaName() : String =
+	self.lemmaName(true)
+;
+
+helper context String def : lemmaName(escape : Boolean) : String =
+	let keywords : Set(String) = Set{
+		'date',
+		'unspecified',
+		'version',
+		'repository'
+	} in
+	let name : String = self.replace(' ', '') in
+	if (escape and not name.startsWith('^') and keywords->exists(k | k = name)) then
+		'^'.concat(name)
+	else
+		name
+	endif
+;
+
+helper context String def : ddmmQualifiedName() : String =
+	'RootElement::'.concat(self)
+;
+
+helper context UML2!Element def : hasStereotype(name : String) : Boolean =
+	self.getAppliedStereotypes()
+		->collect(s | s.qualifiedName)
+		->exists(n | n = name.ddmmQualifiedName())
+;
+
+helper context UML2!Class def : incomingAssociationsFromOtherContexts()
+	: Sequence(TupleType(class : UML2!Class, association : UML2!Association)) =
+	let associatedClasses
+		: Sequence(TupleType(class : UML2!Class, association : UML2!Association)) =
+			self.associatedClasses(true, false) in
+	let outgoingAssociations : Sequence(UML2!Association) = self.outgoingAssociations() in
+	self.associations()
+		->select(a | not outgoingAssociations->includes(a))
+		->collect(a | associatedClasses->any(t | t.association = a))
+		->select(t | t.class.getPackage() <> self.getPackage())
+;
+
+helper context UML2!Class def : associatedClasses(includeIncomingAssociations : Boolean,
+	inSameContextOnly : Boolean)
+	: Sequence(TupleType(class : UML2!Class, association : UML2!Association)) =
+	self.associations()
+		->select(a |
+			if (not includeIncomingAssociations) then
+				not a.navigableOwnedEnd->collect(p | p.type)->includes(self)
+			else
+				true
+			endif
+		)
+		->collect(a |
+			a.memberEnd->removeFirstWithType(self)
+				->select(p | p.type.oclIsTypeOf(UML2!Class))
+				->collect(p | Tuple{class = p.type, association = a})
+		)
+		->flatten()
+		->select(t |
+			if (inSameContextOnly) then
+				t.class.getPackage() = self.getPackage()
+			else
+				true
+			endif
+		)
+;
+
+helper context UML2!Class def : associations() : Sequence(UML2!Association) =
+	UML2!Association.allInstances()
+		->select(a | a.ownedEnd->collect(e | e.type)->exists(t | t = self))
+;
+
+helper context UML2!Class def : outgoingAssociations() : Sequence(UML2!Association) =
+	self.associations()->select(a |
+		a.navigableOwnedEnd->size() > 0 and
+		a.navigableOwnedEnd->forAll(e | e.type <> self)
+	)
+;
+
+helper context Sequence(UML2!Property) def : removeFirstWithType(object : OclAny)
+	: Sequence(UML2!Property) =
+	let reduction : TupleType(removedIndex : Integer, reducedSequence : Sequence(OclAny)) =
+		self->collect(p | p.type)->removeFirstOccurrence(object) in
+	let removedIndex : Integer = reduction.removedIndex in
+	if (removedIndex < 0) then
+		self
+	else
+		let removedProperty : UML2!Property = self->at(removedIndex) in
+		self->excluding(removedProperty)
+	endif
+;
+
+helper context Sequence(OclAny) def : removeFirstOccurrence(object : OclAny)
+	: TupleType(removedIndex : Integer, reducedSequence : Sequence(OclAny)) =
+	let reducedSequence : Sequence(OclAny) = self->excluding(object) in
+	if (reducedSequence->size() = self->size() or self->count(object) = 1) then
+		Tuple{removedIndex = self->indexOf(object), reducedSequence = reducedSequence}
+	else
+		let all : Sequence(OclAny) = self->select(o | o = object) in
+		let reducedByOne : Sequence(OclAny) = all->subSequence(1, all->size() - 1) in
+		Tuple{
+			removedIndex = self->indexOf(object),
+			reducedSequence = reducedSequence->union(reducedByOne)
+		}
+	endif
+;
+
+helper def : findCreatedComplexType(ctx : String, name : String) : Domain!ComplexType =
+	Domain!ComplexType.allInstances()->any(c |
+		if (not c.context.oclIsUndefined()) then c.context.name = ctx else false endif
+		and c.name = name
+	)
+;
+
+helper context UML2!Package def : findCreatedComplexType(property : UML2!Property)
+	: Domain!ComplexType =
+	thisModule.findCreatedComplexType(
+		self.name.lemmaName(), property.type.name.lemmaName()
+		--if (not property.isMultivalued()) then
+			--property.type.name.lemmaName()
+		--else
+			--property.type.name.lemmaListName()
+		--endif
+	)
+;
+
+helper context UML2!Package def : incomingAssociationProperties()
+	: Sequence(TupleType(property : UML2!Property, association : UML2!Association)) =
+	self.classes()
+		->collect(c | c.incomingAssociationsFromOtherContexts())
+		->flatten()
+		->collect(t |
+			t.association.memberEnd
+				->select(m | m.type <> t.class)
+				->collect(m | Tuple{property = m, association = t.association})
+		)
+		->flatten()
+;
+
+helper context UML2!Package def : outgoingAssociationProperties()
+	: Sequence(TupleType(property : UML2!Property, association : UML2!Association)) =
+	self.classes()
+		->collect(c | c.associatedClasses(false, false)->select(a | a.class.getPackage() <> self))
+		->flatten()
+		->collect(t |
+			t.association.memberEnd
+				->select(m | m.type <> t.class)
+				->collect(m | Tuple{property = m, association = t.association})
+		)
+		->flatten()
+;
+
+helper context UML2!Package def : classes() : Sequence(UML2!Class) =
+	self.ownedType->select(t | t.oclIsTypeOf(UML2!Class))
+;
+
+helper context UML2!Association def : memberEndOfType(type : UML2!Class) : UML2!Property =
+	self.memberEnd->any(p | p.type = type)
+;
+
+helper context UML2!Association def : oppositeMemberEnd(type : UML2!Class) : UML2!Property =
+	self.memberEnd->any(p | p.type <> type)
+;
+
+helper context Map(OclAny, Collection(OclAny)) def : unpack()
+	: Sequence(TupleType(key : OclAny, value : OclAny)) =
+	self.getKeys()->collect(k | self.get(k)
+		->iterate(v; result : Sequence(TupleType(key : OclAny, value : OclAny)) = Sequence{} |
+			result->including(Tuple{key = k, value = v})
+		)
+	)
+	->flatten()
+;
+
+helper context Domain!ComplexType def : findClass() : UML2!Class =
+	UML2!Package.allInstances()
+		->any(p | p.name.lemmaName() = self.context.name)
+		->classes()
+		->any(c | c.name.lemmaName() = self.name)
+;
+
+helper context UML2!Parameter def : findDataOperationParameter() : Domain!DataOperationParameter =
+	Domain!DataOperationParameter.allInstances()->any(p |
+		p.operation.dataStructure.context.name = self.operation.class.package.name.lemmaName() and
+		p.operation.dataStructure.name = self.operation.class.name.lemmaName() and
+		p.name = self.name.lemmaName()
+	)
+;
+
+helper context OclAny def : orUniqueName(prefix : String, elementToName : OclAny,
+	elements : Sequence(OclAny), nameField : String) : String =
+	if self.oclIsUndefined() or self.size() = 0 then
+		let elementName : String = if not elementToName.refGetValue(nameField).oclIsUndefined() then
+				elementToName.refGetValue(nameField)
+			else
+				prefix
+			endif
+		in
+		let elementIndex : Integer = elements.indexOf(elementToName) in
+		let elementsWithPrefixCount : Integer = elements->select(e |
+			let elementName : String = e.refGetValue(nameField) in
+			if not elementName.oclIsUndefined() then
+				elementName.startsWith(prefix)
+			else
+				true
+			endif
+		)->size() in
+		if elementsWithPrefixCount > 1 and elementIndex > 0 then
+			elementName.concat(elementIndex.toString())
+		else
+			elementName
+		endif
+	else
+		self
+	endif
+;

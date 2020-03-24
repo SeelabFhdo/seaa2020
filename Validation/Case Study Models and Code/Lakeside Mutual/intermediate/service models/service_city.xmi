@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateServiceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/service/intermediate" xmlns:intermediate_1="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/Phase 3/city/service_city.services">
+  <imports name="city" importUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/intermediate/data models/domain_city.xmi" importTypeName="DATATYPES"/>
+  <microservices sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/Phase 3/city/service_city.services" name="org.example.city.City" qualifiedName="org.example.city.City" visibility="ARCHITECTURE" effectivelyImplemented="true">
+    <interfaces name="ProvidedTypes" qualifiedName="org.example.city.City.ProvidedTypes" visibility="ARCHITECTURE" hasImplementedOperations="true">
+      <operations name="getCitiesForPostalCode" qualifiedName="org.example.city.City.ProvidedTypes.getCitiesForPostalCode" visibility="ARCHITECTURE">
+        <parameters name="postalCode" qualifiedName="org.example.city.City.ProvidedTypes.getCitiesForPostalCode.postalCode">
+          <type xsi:type="intermediate_1:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+        <parameters name="unspecified" qualifiedName="org.example.city.City.ProvidedTypes.getCitiesForPostalCode.unspecified" exchangePattern="OUT">
+          <type xsi:type="intermediate_1:IntermediateImportedComplexType" name="ListCityShared" origin="DATA_MODEL" kind="LIST" qualifiedName="city.ListCityShared" import="//@imports.0"/>
+        </parameters>
+      </operations>
+    </interfaces>
+  </microservices>
+</intermediate:IntermediateServiceModel>

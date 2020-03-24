@@ -1,0 +1,11 @@
+import datatypes from "extracted_domain_customer.data" as customer
+
+architecture functional microservice ADD_QUALIFYING_PART.customer {
+	interface ProvidedTypes {
+		getCustomerId(sync out customerId : customer::customer.CustomerId);
+		getCustomerId(sync out customerId : customer::customer.CustomerId);
+		getCustomerId(sync out customerId : customer::customer.CustomerId);
+		getCustomerId(sync out customerId : customer::customer.CustomerId);
+		getCustomerId(sync out listCustomerId : customer::customer.ListCustomerId);
+	}
+}

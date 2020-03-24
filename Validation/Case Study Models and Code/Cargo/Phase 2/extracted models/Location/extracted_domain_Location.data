@@ -1,0 +1,15 @@
+context Location {
+	structure LocationService <service> {
+		ListLocation location,
+	
+		procedure resolvebyportcode(string unnamed)
+	}
+
+	structure Location <entity> {
+		unspecified portcode <identifier>
+	}
+
+	list ListLocation {
+		Location location
+	}
+}

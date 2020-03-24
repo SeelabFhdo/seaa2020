@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ASCII"?>
+<service:ServiceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data" xmlns:service="de.fhdo.lemma.service">
+  <imports name="customer" importURI="extracted_domain_customer.data"/>
+  <microservices name="customer">
+    <interfaces name="ProvidedTypes">
+      <operations name="getCustomerId">
+        <parameters name="customerId" exchangePattern="OUT">
+          <importedType import="//@imports.0">
+            <type xsi:type="data:DataStructure" href="/Lakeside Mutual/extracted models/customer/extracted_domain_customer.data.xmi#//@contexts.0/@complexTypes.6"/>
+          </importedType>
+        </parameters>
+      </operations>
+      <operations name="getCustomerId">
+        <parameters name="customerId" exchangePattern="OUT">
+          <importedType import="//@imports.0">
+            <type xsi:type="data:DataStructure" href="/Lakeside Mutual/extracted models/customer/extracted_domain_customer.data.xmi#//@contexts.0/@complexTypes.6"/>
+          </importedType>
+        </parameters>
+      </operations>
+      <operations name="getCustomerId">
+        <parameters name="customerId" exchangePattern="OUT">
+          <importedType import="//@imports.0">
+            <type xsi:type="data:DataStructure" href="/Lakeside Mutual/extracted models/customer/extracted_domain_customer.data.xmi#//@contexts.0/@complexTypes.6"/>
+          </importedType>
+        </parameters>
+      </operations>
+      <operations name="getCustomerId">
+        <parameters name="customerId" exchangePattern="OUT">
+          <importedType import="//@imports.0">
+            <type xsi:type="data:DataStructure" href="/Lakeside Mutual/extracted models/customer/extracted_domain_customer.data.xmi#//@contexts.0/@complexTypes.6"/>
+          </importedType>
+        </parameters>
+      </operations>
+      <operations name="getCustomerId">
+        <parameters name="listCustomerId" exchangePattern="OUT">
+          <importedType import="//@imports.0">
+            <type xsi:type="data:ListType" href="/Lakeside Mutual/extracted models/customer/extracted_domain_customer.data.xmi#//@contexts.0/@complexTypes.14"/>
+          </importedType>
+        </parameters>
+      </operations>
+    </interfaces>
+  </microservices>
+</service:ServiceModel>

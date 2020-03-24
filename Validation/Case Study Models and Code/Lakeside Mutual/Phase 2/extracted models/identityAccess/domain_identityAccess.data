@@ -1,0 +1,40 @@
+context identityAccess {
+	structure UserLoginRepository <repository> {
+		unspecified id,
+		UserLogin login,
+	
+		function UserLogin findByEmail(unspecified email)
+	}
+
+	structure UserDetailsService <service> {
+		UserLoginRepository ^repository,
+	
+		function UserDetails loadUserByUsername(string unnamed)
+	}
+
+	structure UserLogin <entity> {
+		unspecified id <identifier>,
+		unspecified authorities,
+		unspecified email,
+		unspecified password
+	}
+
+	structure UserSecurityDetails <entity> {
+		unspecified id <identifier>,
+		unspecified accountNonExpired,
+		unspecified accountNonLocked,
+		unspecified credentialsNonExpired,
+		unspecified email,
+		unspecified enabled,
+		unspecified password,
+		ListString authorities
+	}
+
+	structure UserDetails <valueObject> {
+		immutable unspecified email
+	}
+
+	list ListString {
+		string
+	}
+}

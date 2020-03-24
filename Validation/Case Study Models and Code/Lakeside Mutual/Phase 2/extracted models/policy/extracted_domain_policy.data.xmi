@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ASCII"?>
+<data:DataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data">
+  <contexts name="policy">
+    <complexTypes xsi:type="data:DataStructure" name="RiskManagementService">
+      <features>SERVICE</features>
+      <operations name="notifyRiskManagement" complexReturnType="//@contexts.0/@complexTypes.8">
+        <parameters name="originator"/>
+        <parameters name="^date"/>
+        <parameters name="customer" complexType="//@contexts.0/@complexTypes.10"/>
+        <parameters name="policy" complexType="//@contexts.0/@complexTypes.2"/>
+      </operations>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="InsuringAgreementEntity">
+      <features>ENTITY</features>
+      <dataFields name="id">
+        <features>IDENTIFIER</features>
+      </dataFields>
+      <dataFields name="items" complexType="//@contexts.0/@complexTypes.9"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="PolicyAggregateRoot">
+      <features>ENTITY</features>
+      <features>AGGREGATE</features>
+      <dataFields name="creationDate"/>
+      <dataFields name="id" complexType="//@contexts.0/@complexTypes.5">
+        <features>IDENTIFIER</features>
+        <features>PART</features>
+      </dataFields>
+      <dataFields name="policyPeriod" complexType="//@contexts.0/@complexTypes.6">
+        <features>PART</features>
+      </dataFields>
+      <dataFields name="policyType" complexType="//@contexts.0/@complexTypes.7">
+        <features>PART</features>
+      </dataFields>
+      <dataFields name="policyLimit" complexType="//@contexts.0/@complexTypes.4">
+        <features>PART</features>
+      </dataFields>
+      <dataFields name="insurancePremium" complexType="//@contexts.0/@complexTypes.4">
+        <features>PART</features>
+      </dataFields>
+      <dataFields name="insuringAgreement" complexType="//@contexts.0/@complexTypes.1"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="InsuringAgreementItem">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="id" immutable="true"/>
+      <dataFields name="title" immutable="true"/>
+      <dataFields name="description" immutable="true"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="MoneyAmount">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="amount" immutable="true"/>
+      <dataFields name="currency" immutable="true"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="PolicyId">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="id" immutable="true"/>
+      <operations name="random" complexReturnType="//@contexts.0/@complexTypes.5"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="PolicyPeriod">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="startDate" immutable="true"/>
+      <dataFields name="endDate" immutable="true"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="PolicyType">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="name" immutable="true"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="PolicyEvent">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="originator" immutable="true"/>
+      <dataFields name="^date" immutable="true"/>
+      <dataFields name="CustomerShared" complexType="//@contexts.0/@complexTypes.10"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListInsuringAgreementItem">
+      <dataFields name="insuringAgreementItem" complexType="//@contexts.0/@complexTypes.3"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="CustomerShared">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="customerId"/>
+      <dataFields name="customerProfile" complexType="//@contexts.0/@complexTypes.11"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="CustomerProfileShared">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="firstname"/>
+      <dataFields name="lastname"/>
+      <dataFields name="birthday"/>
+      <dataFields name="email"/>
+      <dataFields name="phoneNumber"/>
+      <dataFields name="address" complexType="//@contexts.0/@complexTypes.12"/>
+      <dataFields name="moveHistory" complexType="//@contexts.0/@complexTypes.13"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="AddressShared">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="streetAddress"/>
+      <dataFields name="postalCode"/>
+      <dataFields name="city"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListAddressShared">
+      <dataFields name="addressShared" complexType="//@contexts.0/@complexTypes.12"/>
+    </complexTypes>
+  </contexts>
+</data:DataModel>

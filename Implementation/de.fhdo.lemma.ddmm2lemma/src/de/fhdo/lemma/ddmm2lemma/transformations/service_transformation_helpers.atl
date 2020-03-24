@@ -1,0 +1,32 @@
+-- @atlcompiler emftvm
+library "service_transformation_helpers";
+
+helper context UML2!Package def : providedTypes() 
+	: Map(UML2!Association, Set(Domain!ComplexType)) =
+	self.incomingAssociationProperties()
+		->iterate(t; result : Map(UML2!Association, Set(Domain!ComplexType)) = Map{} |
+			let collectedTypes : Set(Domain!ComplexType) = result->get(t.association) in
+			let complexType : Domain!ComplexType = self.findCreatedComplexType(t.property) in
+		
+			if (not collectedTypes.oclIsUndefined()) then
+				result->including(t.association, collectedTypes->including(complexType))
+			else
+				result->including(t.association, Set{complexType})
+			endif
+		)
+;
+
+helper context UML2!Package def : receivedTypes() 
+	: Map(UML2!Association, Set(Domain!ComplexType)) =
+	self.outgoingAssociationProperties()
+		->iterate(t; result : Map(UML2!Association, Set(Domain!ComplexType)) = Map{} |
+			let collectedTypes : Set(Domain!ComplexType) = result->get(t.association) in
+			let complexType : Domain!ComplexType = self.findCreatedComplexType(t.property) in
+		
+			if (not collectedTypes.oclIsUndefined()) then
+				result->including(t.association, collectedTypes->including(complexType))
+			else
+				result->including(t.association, Set{complexType})
+			endif
+		)
+;

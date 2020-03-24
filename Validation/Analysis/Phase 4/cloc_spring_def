@@ -1,0 +1,19 @@
+Java
+    filter replace_regex '\\\\$' ' '
+    filter replace_between_regex '(["\'])(.*?/\*)\g1' '(.*?)' '"xx"'
+    filter replace_between_regex '(["\'])(.*?\*/)\g1' '(.*?)' '"xx"'
+    filter call_regexp_common C++
+    extension java
+    3rd_gen_scale 5.00
+
+Maven
+    filter remove_html_comments
+    filter call_regexp_common HTML
+    extension xml
+    3rd_gen_scale 5.00
+
+Properties
+    filter remove_matches '^\s*#'
+    filter remove_inline '#.*$'
+    extension properties
+    3rd_gen_scale 5.00

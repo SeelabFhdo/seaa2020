@@ -1,0 +1,11 @@
+import datatypes from "domain_interactionLog.data" as interactionLog
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.interactionLog --> microservice org.example.interactionLog.InteractionLog
+architecture functional microservice org.example.interactionLog.InteractionLog {
+	// A7: Specify operations for microservices that do not exhibit sharing relationships with other microservices
+	//		Added InteractionLog interface and getNotifications() operation
+	interface InteractionLog {
+		getNotifications(sync out notifications : interactionLog::interactionLog.ListNotification);
+	}
+}

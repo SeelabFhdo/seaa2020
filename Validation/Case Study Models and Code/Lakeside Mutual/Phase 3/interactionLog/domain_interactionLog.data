@@ -1,0 +1,65 @@
+context interactionLog {
+	structure InteractionLogRepository <repository> {
+		ListInteractionLogAggregateRoot interactions
+	}
+
+	structure InteractionLogService <service> {
+		InteractionLogRepository ^repository,
+
+		function ListNotification getNotifications()
+	}
+
+	structure InteractionEntity <entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified id --> long id
+		long id <identifier>,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified ^date --> date ^date
+		date ^date,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified content --> string content
+		string content,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified sentByOperator --> boolean sentByOperator
+		boolean sentByOperator
+	}
+
+	structure InteractionLogAggregateRoot <aggregate, entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified username --> string username
+		string username,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified lastAcknowledgedInteractionId --> long lastAcknowledgedInteractionId
+		long lastAcknowledgedInteractionId,
+
+		ListInteractionEntity interactions,
+
+		function int getNumberOfUnacknowledgedInteractions()
+	}
+
+	structure Notification <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified username --> immutable string username
+		immutable string username,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified count --> immutable int count
+		immutable int count
+	}
+
+	list ListInteractionLogAggregateRoot {
+		InteractionLogAggregateRoot interactionLogAggregateRoot
+	}
+
+	list ListNotification {
+		Notification notification
+	}
+
+	list ListInteractionEntity {
+		InteractionEntity interactionEntity
+	}
+}

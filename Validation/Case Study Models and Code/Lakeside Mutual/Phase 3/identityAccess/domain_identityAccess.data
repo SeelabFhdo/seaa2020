@@ -1,0 +1,81 @@
+context identityAccess {
+	structure UserLoginRepository <repository> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified id --> long id
+		long id,
+
+		UserLogin login,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		function UserLogin findByEmail(string email)
+	}
+
+	structure UserDetailsService <service> {
+		UserLoginRepository ^repository,
+
+		// A3: Assign concrete names to parameters
+		//		string unnamed --> string username
+		function UserDetails loadUserByUsername(string username)
+	}
+
+	structure UserLogin <entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified id --> long id
+		long id <identifier>,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified authorities --> ListString authorities
+		ListString authorities,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		string email,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified password --> string password
+		string password
+	}
+
+	structure UserSecurityDetails <entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified id --> long id
+		long id <identifier>,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified accountNonExpired --> boolean accountNonExpired
+		boolean accountNonExpired,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified accountNonLocked --> boolean accountNonLocked
+		boolean accountNonLocked,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified credentialsNonExpired --> boolean credentialsNonExpired
+		boolean credentialsNonExpired,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		string email,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified enabled --> boolean enabled
+		boolean enabled,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified password --> string password
+		string password,
+
+		ListString authorities
+	}
+
+	structure UserDetails <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified email --> immutable string email
+		immutable string email
+	}
+
+	list ListString {
+		string
+	}
+}

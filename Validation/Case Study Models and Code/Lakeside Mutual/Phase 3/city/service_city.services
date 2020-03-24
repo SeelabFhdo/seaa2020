@@ -1,0 +1,13 @@
+import datatypes from "domain_city.data" as city
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.city --> microservice org.example.city.City {
+architecture functional microservice org.example.city.City {
+	interface ProvidedTypes {
+		// A4: Replace unspecified type in parameters with concrete type
+		// 		getCitiesForPostalCode(sync postalCode : unspecified --> getCitiesForPostalCode(sync postalCode : string
+		// A8: Assign concrete names to parameters
+		//		sync out unnamed --> sync out city
+		getCitiesForPostalCode(sync postalCode : string, sync out city : city::city.ListCityShared);
+	}
+}

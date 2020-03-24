@@ -1,0 +1,16 @@
+import microservices from "../Phase 3/interactionLog/service_interactionLog.services" as services
+import technology from "java.technology" as java
+
+@technology(java)
+services::org.example.interactionLog.InteractionLog {
+	aspects { java::_aspects.CustomProperty(name = "server.port", value="8083"); }
+	
+	interface InteractionLog {
+		endpoints {	java::_protocols.rest: "interactionLog"; }
+	}
+	
+	operation InteractionLog.getNotifications {
+		endpoints {	java::_protocols.rest: "notifications"; }
+		aspects { java::_aspects.GetMapping; }
+	}
+}

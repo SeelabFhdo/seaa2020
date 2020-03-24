@@ -1,0 +1,26 @@
+import microservices from "../Phase 3/Location/service_Location.services" as services
+import technology from "java.technology" as java
+
+@technology(java)
+services::org.example.location.Location {
+	aspects { java::_aspects.CustomProperty(name = "server.port", value="8082"); }
+	
+	interface ProvidedTypes {				
+		endpoints {	java::_protocols.rest: "location"; }
+	}
+	
+	operation ProvidedTypes.getDestination {
+		endpoints {	java::_protocols.rest: "destination"; }		
+		aspects { java::_aspects.GetMapping; }
+	}
+	
+	operation ProvidedTypes.getFrom {
+		endpoints {	java::_protocols.rest: "from"; }		
+		aspects { java::_aspects.GetMapping; }
+	}
+	
+	operation ProvidedTypes.getTo {
+		endpoints {	java::_protocols.rest: "to"; }		
+		aspects { java::_aspects.GetMapping; }
+	}
+}

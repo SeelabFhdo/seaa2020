@@ -1,0 +1,7 @@
+import datatypes from "domain_Customer.data" as customer
+
+architecture functional microservice ADD_QUALIFYING_PART.Customer {
+	interface ProvidedTypes {
+		getCustomer(sync out unnamed : customer::Customer.CustomerShared);
+	}
+}

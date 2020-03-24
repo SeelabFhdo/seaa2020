@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<data:DataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data">
+  <contexts name="city">
+    <complexTypes xsi:type="data:DataStructure" name="City">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="name" immutable="true"/>
+      <dataFields name="postalCode" immutable="true"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:DataStructure" name="CityShared">
+      <features>VALUE_OBJECT</features>
+      <dataFields name="name"/>
+      <dataFields name="postalCode"/>
+    </complexTypes>
+    <complexTypes xsi:type="data:ListType" name="ListCityShared">
+      <dataFields name="cityShared" complexType="//@contexts.0/@complexTypes.1"/>
+    </complexTypes>
+  </contexts>
+</data:DataModel>

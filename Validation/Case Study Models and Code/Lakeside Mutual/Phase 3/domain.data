@@ -1,0 +1,492 @@
+context customer {
+	structure CustomerRepository <repository> {
+		ListCustomerAggregateRoot customerAggregateRoot,
+
+		function CustomerId nextId()
+	}
+
+	structure CustomerFactory <service> {
+		CustomerRepository customerRepository,
+
+		// A3: Assign concrete names to parameters
+		//		CustomerProfileEntity unnamed --> CustomerProfileEntity profile
+		function CustomerAggregateRoot create(CustomerProfileEntity profile),
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified phoneNumberStr --> string phoneNumberStr
+		procedure formatPhoneNumber(string phoneNumberStr)
+	}
+
+	structure CustomerService <service> {
+		// A3: Assign concrete names to parameters
+		//		CustomerId unnamed --> CustomerId customerId
+		function CustomerAggregateRoot updateAddress(CustomerId customerId, Address unspecified1),
+		
+		// A3: Assign concrete names to parameters
+		//		CustomerId unnamed --> CustomerId customerId
+		function CustomerAggregateRoot updateCustomerProfile(CustomerId customerId, CustomerProfileEntity unspecified1),
+		
+		// A3: Assign concrete names to parameters
+		//		CustomerProfileEntity unnamed --> CustomerProfileEntity profile
+		function CustomerAggregateRoot createCustomer(CustomerProfileEntity profile),
+		
+		function ListCustomerAggregateRoot getCustomers(string ids)
+	}
+
+	structure CustomerProfileEntity <entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified firstname --> string firstname
+		string firstname,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified lastname --> string lastname
+		string lastname,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified birthday --> date birthday
+		date birthday,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		string email,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified phoneNumber --> string phoneNumber
+		string phoneNumber,
+
+		Address currentAddress,
+		ListAddress moveHistory,
+
+		// A3: Assign concrete names to parameters
+		//		Address unnamed --> Address address	
+		procedure moveToAddress(Address address)
+	}
+
+	structure CustomerAggregateRoot <aggregate, entity> {
+		CustomerId id <identifier, part>,
+		CustomerProfileEntity customerProfile <part>,
+
+		// A3: Assign concrete names to parameters
+		//		Address unnamed --> Address address
+		procedure moveToAddress(Address address),
+		
+		// A3: Assign concrete names to parameters
+		//		CustomerProfileEntity unnamed --> CustomerProfileEntity profile
+		procedure updateCustomerProfile(CustomerProfileEntity profile)
+	}
+
+	structure Address <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		hide immutable unspecified id --> hide immutable long id
+		// A2: Specify default value for hidden immutable fields
+		//		hide immutable long id, --> hide immutable long id = 0,
+		hide immutable long id = 0,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified streetAddress --> immutable string streetAddress
+		immutable string streetAddress,
+
+		CityShared CityShared
+	}
+
+	structure CustomerId <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified id --> immutable long id
+		immutable long id,
+
+		function CustomerId random()
+	}
+
+	list ListCustomerAggregateRoot {
+		CustomerAggregateRoot customerAggregateRoot
+	}
+
+	list ListAddress {
+		Address address
+	}
+
+	structure CityShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified name --> string name
+		string name,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified postalCode --> string postalCode
+		string postalCode
+	}
+
+	structure CustomerShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified customerId --> string customerId
+		long customerId,
+
+		CustomerProfileShared customerProfile
+	}
+
+	structure CustomerProfileShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified firstname --> string firstname
+		string firstname,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified lastname --> string lastname
+		string lastname,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified birthday --> date birthday
+		date birthday,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		string email,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified phoneNumber --> string phoneNumber
+		string phoneNumber,
+
+		AddressShared address,
+		ListAddressShared moveHistory
+	}
+
+	structure AddressShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified streetAddress --> string streetAddress
+		string streetAddress,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified postalCode --> string postalCode
+		string postalCode,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified city --> string city
+		string city
+	}
+
+	list ListAddressShared {
+		ListAddressShared addressShared
+	}
+
+	list ListCustomerId {
+		CustomerId customerId
+	}
+}
+
+context city {
+	structure City <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified name --> immutable string name
+		immutable string name,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified postalCode --> immutable string postalCode
+		immutable string postalCode
+	}
+
+	structure CityShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified name --> immutable string name
+		string name,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified postalCode --> immutable string postalCode
+		string postalCode
+	}
+
+	list ListCityShared {
+		ListCityShared cityShared
+	}
+}
+
+context interactionLog {
+	structure InteractionLogRepository <repository> {
+		ListInteractionLogAggregateRoot interactions
+	}
+
+	structure InteractionLogService <service> {
+		InteractionLogRepository ^repository,
+
+		function ListNotification getNotifications()
+	}
+
+	structure InteractionEntity <entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified id --> long id
+		long id <identifier>,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified ^date --> date ^date
+		date ^date,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified content --> string content
+		string content,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified sentByOperator --> boolean sentByOperator
+		boolean sentByOperator
+	}
+
+	structure InteractionLogAggregateRoot <aggregate, entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified username --> string username
+		string username,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified lastAcknowledgedInteractionId --> long lastAcknowledgedInteractionId
+		long lastAcknowledgedInteractionId,
+
+		ListInteractionEntity interactions,
+
+		function int getNumberOfUnacknowledgedInteractions()
+	}
+
+	structure Notification <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified username --> immutable string username
+		immutable string username,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified count --> immutable int count
+		immutable int count
+	}
+
+	list ListInteractionLogAggregateRoot {
+		InteractionLogAggregateRoot interactionLogAggregateRoot
+	}
+
+	list ListNotification {
+		Notification notification
+	}
+
+	list ListInteractionEntity {
+		InteractionEntity interactionEntity
+	}
+}
+
+context identityAccess {
+	structure UserLoginRepository <repository> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified id --> long id
+		long id,
+
+		UserLogin login,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		function UserLogin findByEmail(string email)
+	}
+
+	structure UserDetailsService <service> {
+		UserLoginRepository ^repository,
+
+		// A3: Assign concrete names to parameters
+		//		string unnamed --> string username
+		function UserDetails loadUserByUsername(string username)
+	}
+
+	structure UserLogin <entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified id --> long id
+		long id <identifier>,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified authorities --> ListString authorities
+		ListString authorities,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		string email,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified password --> string password
+		string password
+	}
+
+	structure UserSecurityDetails <entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified id --> long id
+		long id <identifier>,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified accountNonExpired --> boolean accountNonExpired
+		boolean accountNonExpired,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified accountNonLocked --> boolean accountNonLocked
+		boolean accountNonLocked,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified credentialsNonExpired --> boolean credentialsNonExpired
+		boolean credentialsNonExpired,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		string email,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified enabled --> boolean enabled
+		boolean enabled,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified password --> string password
+		string password,
+
+		ListString authorities
+	}
+
+	structure UserDetails <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified email --> immutable string email
+		immutable string email
+	}
+
+	list ListString {
+		string
+	}
+}
+
+context policy {
+	structure RiskManagementService <service> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified originator --> long originator
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified ^date --> date ^date
+		function PolicyEvent notifyRiskManagement(long originator, date ^date, CustomerShared customer, PolicyAggregateRoot policy)
+	}
+
+	structure InsuringAgreementEntity <entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified id --> long id
+		long id <identifier>,
+
+		ListInsuringAgreementItem items
+	}
+
+	structure PolicyAggregateRoot <aggregate, entity> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified creationDate --> date creationDate
+		date creationDate,
+
+		PolicyId id <identifier, part>,
+		PolicyPeriod policyPeriod <part>,
+		PolicyType policyType <part>,
+		MoneyAmount policyLimit <part>,
+		MoneyAmount insurancePremium <part>,
+		InsuringAgreementEntity insuringAgreement
+	}
+
+	structure InsuringAgreementItem <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified id --> immutable long id
+		immutable long id,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified title --> immutable string title
+		immutable string title,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified description --> immutable string description
+		immutable string description
+	}
+
+	structure MoneyAmount <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified amount --> immutable float amount
+		immutable float amount,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified currency --> immutable string currency
+		immutable string currency
+	}
+
+	structure PolicyId <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified id --> immutable long id
+		immutable long id,
+
+		function PolicyId random()
+	}
+
+	structure PolicyPeriod <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified startDate --> immutable date startDate,
+		immutable date startDate,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified endDate --> immutable date endDate,
+		immutable date endDate
+	}
+
+	structure PolicyType <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified name --> immutable string name,
+		immutable string name
+	}
+
+	structure PolicyEvent <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified originator --> immutable long originator,
+		immutable long originator,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		immutable unspecified ^date --> immutable date ^date,
+		immutable date ^date,
+
+		CustomerShared CustomerShared
+	}
+
+	list ListInsuringAgreementItem {
+		InsuringAgreementItem insuringAgreementItem
+	}
+
+	structure CustomerShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified customerId --> long customerId,
+		long customerId,
+
+		CustomerProfileShared customerProfile
+	}
+
+	structure CustomerProfileShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified firstname --> string firstname
+		string firstname,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified lastname --> string lastname
+		string lastname,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified birthday --> date birthday
+		date birthday,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified email --> string email
+		string email,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified phoneNumber --> string phoneNumber
+		string phoneNumber,
+
+		AddressShared address,
+		ListAddressShared moveHistory
+	}
+
+	structure AddressShared <valueObject> {
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified streetAddress --> string streetAddress
+		string streetAddress,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified postalCode --> string postalCode
+		string postalCode,
+
+		// A1: Replace unspecified type in data fields with concrete type
+		//		unspecified city --> string city
+		string city
+	}
+
+	list ListAddressShared {
+		AddressShared addressShared
+	}
+}

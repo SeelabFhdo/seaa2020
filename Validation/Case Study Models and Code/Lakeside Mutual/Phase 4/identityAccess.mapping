@@ -1,0 +1,16 @@
+import microservices from "../Phase 3/identityAccess/service_identityAccess.services" as services
+import technology from "java.technology" as java
+
+@technology(java)
+services::org.example.identityAccess.IdentityAccess {
+	aspects { java::_aspects.CustomProperty(name = "server.port", value="8082"); }
+	
+	interface IdentityAccess {
+		endpoints {	java::_protocols.rest: "identityAccess"; }
+	}
+	
+	operation IdentityAccess.performLogin {
+		endpoints {	java::_protocols.rest: "login"; }
+		aspects { java::_aspects.PostMapping; }
+	}
+}

@@ -1,0 +1,16 @@
+import microservices from "../Phase 3/city/service_city.services" as services
+import technology from "java.technology" as java
+
+@technology(java)
+services::org.example.city.City {
+	aspects { java::_aspects.CustomProperty(name = "server.port", value="8080"); }
+	
+	interface ProvidedTypes {
+		endpoints {	java::_protocols.rest: "city"; }
+	}
+	
+	operation ProvidedTypes.getCitiesForPostalCode {
+		endpoints {	java::_protocols.rest: "cities"; }
+		aspects { java::_aspects.GetMapping; }
+	}
+}

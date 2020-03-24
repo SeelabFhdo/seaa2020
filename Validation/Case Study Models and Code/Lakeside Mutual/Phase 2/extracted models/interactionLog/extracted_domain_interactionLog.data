@@ -1,0 +1,43 @@
+context interactionLog {
+	structure InteractionLogRepository <repository> {
+		ListInteractionLogAggregateRoot interactions
+	}
+
+	structure InteractionLogService <service> {
+		InteractionLogRepository ^repository,
+	
+		function ListNotification getNotifications()
+	}
+
+	structure InteractionEntity <entity> {
+		unspecified id <identifier>,
+		unspecified ^date,
+		unspecified content,
+		unspecified sentByOperator
+	}
+
+	structure InteractionLogAggregateRoot <aggregate, entity> {
+		unspecified username,
+		unspecified lastAcknowledgedInteractionId,
+		ListInteractionEntity interactions,
+	
+		function int getNumberOfUnacknowledgedInteractions()
+	}
+
+	structure Notification <valueObject> {
+		immutable unspecified username,
+		immutable unspecified count
+	}
+
+	list ListInteractionLogAggregateRoot {
+		InteractionLogAggregateRoot interactionLogAggregateRoot
+	}
+
+	list ListNotification {
+		Notification notification
+	}
+
+	list ListInteractionEntity {
+		InteractionEntity interactionEntity
+	}
+}

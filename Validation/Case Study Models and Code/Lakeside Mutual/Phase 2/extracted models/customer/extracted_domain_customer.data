@@ -1,0 +1,95 @@
+context customer {
+	structure CustomerRepository <repository> {
+		ListCustomerAggregateRoot customerAggregateRoot,
+	
+		function CustomerId nextId()
+	}
+
+	structure CustomerFactory <service> {
+		CustomerRepository customerRepository,
+	
+		function CustomerAggregateRoot create(CustomerProfileEntity unnamed),
+		procedure formatPhoneNumber(unspecified phoneNumberStr)
+	}
+
+	structure CustomerService <service> {
+		function CustomerAggregateRoot updateAddress(CustomerId unnamed, Address unnamed1),
+		function CustomerAggregateRoot updateCustomerProfile(CustomerId unnamed, CustomerProfileEntity unnamed1),
+		function CustomerAggregateRoot createCustomer(CustomerProfileEntity unnamed),
+		function ListCustomerAggregateRoot getCustomers(string ids)
+	}
+
+	structure CustomerProfileEntity <entity> {
+		unspecified firstname,
+		unspecified lastname,
+		unspecified birthday,
+		unspecified email,
+		unspecified phoneNumber,
+		Address currentAddress,
+		ListAddress moveHistory,
+	
+		procedure moveToAddress(Address unnamed)
+	}
+
+	structure CustomerAggregateRoot <aggregate, entity> {
+		CustomerId id <identifier, part>,
+		CustomerProfileEntity customerProfile <part>,
+	
+		procedure moveToAddress(Address unnamed),
+		procedure updateCustomerProfile(CustomerProfileEntity unnamed)
+	}
+
+	structure Address <valueObject> {
+		hide immutable unspecified id,
+		immutable unspecified streetAddress,
+		CityShared CityShared
+	}
+
+	structure CustomerId <valueObject> {
+		immutable unspecified id,
+	
+		function CustomerId random()
+	}
+
+	list ListCustomerAggregateRoot {
+		CustomerAggregateRoot customerAggregateRoot
+	}
+
+	list ListAddress {
+		Address address
+	}
+
+	structure CityShared <valueObject> {
+		unspecified name,
+		unspecified postalCode
+	}
+
+	structure CustomerShared <valueObject> {
+		unspecified customerId,
+		CustomerProfileShared customerProfile
+	}
+
+	structure CustomerProfileShared <valueObject> {
+		unspecified firstname,
+		unspecified lastname,
+		unspecified birthday,
+		unspecified email,
+		unspecified phoneNumber,
+		AddressShared address,
+		ListAddressShared moveHistory
+	}
+
+	structure AddressShared <valueObject> {
+		unspecified streetAddress,
+		unspecified postalCode,
+		unspecified city
+	}
+
+	list ListAddressShared {
+		AddressShared addressShared
+	}
+
+	list ListCustomerId {
+		CustomerId customerId
+	}
+}

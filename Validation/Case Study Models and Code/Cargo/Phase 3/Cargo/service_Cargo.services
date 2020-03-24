@@ -1,0 +1,9 @@
+import datatypes from "domain_Cargo.data" as cargo
+
+// A6: Add qualifying part to microservice name
+//		microservice ADD_QUALIFYING_PART.Cargo --> microservice org.example.cargo.Cargo {
+architecture functional microservice org.example.cargo.Cargo {
+	interface ProvidedTypes {
+		getDeliverySpecification(sync out deliverySpecification : cargo::Cargo.DeliverySpecification);
+	}
+}

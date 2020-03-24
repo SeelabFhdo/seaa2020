@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data">
+  <data:DataModel>
+    <contexts name="customer">
+      <complexTypes xsi:type="data:DataStructure" name="CustomerRepository">
+        <features>REPOSITORY</features>
+        <dataFields name="customerAggregateRoot" complexType="/0/@contexts.0/@complexTypes.7"/>
+        <operations name="nextId" complexReturnType="/0/@contexts.0/@complexTypes.6"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="CustomerFactory">
+        <features>SERVICE</features>
+        <dataFields name="customerRepository" complexType="/0/@contexts.0/@complexTypes.0"/>
+        <operations name="create" complexReturnType="/0/@contexts.0/@complexTypes.4">
+          <parameters name="unnamed" complexType="/0/@contexts.0/@complexTypes.3"/>
+        </operations>
+        <operations name="formatPhoneNumber">
+          <parameters name="phoneNumberStr"/>
+        </operations>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="CustomerService">
+        <features>SERVICE</features>
+        <operations name="updateAddress" complexReturnType="/0/@contexts.0/@complexTypes.4">
+          <parameters name="unnamed" complexType="/0/@contexts.0/@complexTypes.6"/>
+          <parameters name="unnamed1" complexType="/0/@contexts.0/@complexTypes.5"/>
+        </operations>
+        <operations name="updateCustomerProfile" complexReturnType="/0/@contexts.0/@complexTypes.4">
+          <parameters name="unnamed" complexType="/0/@contexts.0/@complexTypes.6"/>
+          <parameters name="unnamed1" complexType="/0/@contexts.0/@complexTypes.3"/>
+        </operations>
+        <operations name="createCustomer" complexReturnType="/0/@contexts.0/@complexTypes.4">
+          <parameters name="unnamed" complexType="/0/@contexts.0/@complexTypes.3"/>
+        </operations>
+        <operations name="getCustomers" complexReturnType="/0/@contexts.0/@complexTypes.7">
+          <parameters name="ids">
+            <primitiveType xsi:type="data:PrimitiveString"/>
+          </parameters>
+        </operations>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="CustomerProfileEntity">
+        <features>ENTITY</features>
+        <dataFields name="firstname"/>
+        <dataFields name="lastname"/>
+        <dataFields name="birthday"/>
+        <dataFields name="email"/>
+        <dataFields name="phoneNumber"/>
+        <dataFields name="currentAddress" complexType="/0/@contexts.0/@complexTypes.5"/>
+        <dataFields name="moveHistory" complexType="/0/@contexts.0/@complexTypes.8"/>
+        <operations name="moveToAddress">
+          <parameters name="unnamed" complexType="/0/@contexts.0/@complexTypes.5"/>
+        </operations>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="CustomerAggregateRoot">
+        <features>ENTITY</features>
+        <features>AGGREGATE</features>
+        <dataFields name="id" complexType="/0/@contexts.0/@complexTypes.6">
+          <features>IDENTIFIER</features>
+          <features>PART</features>
+        </dataFields>
+        <dataFields name="customerProfile" complexType="/0/@contexts.0/@complexTypes.3">
+          <features>PART</features>
+        </dataFields>
+        <operations name="moveToAddress">
+          <parameters name="unnamed" complexType="/0/@contexts.0/@complexTypes.5"/>
+        </operations>
+        <operations name="updateCustomerProfile">
+          <parameters name="unnamed" complexType="/0/@contexts.0/@complexTypes.3"/>
+        </operations>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="Address">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="id" hidden="true" immutable="true"/>
+        <dataFields name="streetAddress" immutable="true"/>
+        <dataFields name="CityShared" complexType="/0/@contexts.0/@complexTypes.9"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="CustomerId">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="id" immutable="true"/>
+        <operations name="random" complexReturnType="/0/@contexts.0/@complexTypes.6"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListCustomerAggregateRoot">
+        <dataFields name="customerAggregateRoot" complexType="/0/@contexts.0/@complexTypes.4"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListAddress">
+        <dataFields name="address" complexType="/0/@contexts.0/@complexTypes.5"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="CityShared">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="name"/>
+        <dataFields name="postalCode"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="CustomerShared">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="customerId"/>
+        <dataFields name="customerProfile" complexType="/0/@contexts.0/@complexTypes.11"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="CustomerProfileShared">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="firstname"/>
+        <dataFields name="lastname"/>
+        <dataFields name="birthday"/>
+        <dataFields name="email"/>
+        <dataFields name="phoneNumber"/>
+        <dataFields name="address" complexType="/0/@contexts.0/@complexTypes.12"/>
+        <dataFields name="moveHistory" complexType="/0/@contexts.0/@complexTypes.13"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="AddressShared">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="streetAddress"/>
+        <dataFields name="postalCode"/>
+        <dataFields name="city"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListAddressShared">
+        <dataFields name="addressShared" complexType="/0/@contexts.0/@complexTypes.13"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListCustomerId">
+        <dataFields name="customerId" complexType="/0/@contexts.0/@complexTypes.6"/>
+      </complexTypes>
+    </contexts>
+    <contexts name="city">
+      <complexTypes xsi:type="data:DataStructure" name="City">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="name" immutable="true"/>
+        <dataFields name="postalCode" immutable="true"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="CityShared">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="name"/>
+        <dataFields name="postalCode"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListCityShared">
+        <dataFields name="cityShared" complexType="/0/@contexts.1/@complexTypes.2"/>
+      </complexTypes>
+    </contexts>
+    <contexts name="interactionLog">
+      <complexTypes xsi:type="data:DataStructure" name="InteractionLogRepository">
+        <features>REPOSITORY</features>
+        <dataFields name="interactions" complexType="/0/@contexts.2/@complexTypes.5"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="InteractionLogService">
+        <features>SERVICE</features>
+        <dataFields name="^repository" complexType="/0/@contexts.2/@complexTypes.0"/>
+        <operations name="getNotifications" complexReturnType="/0/@contexts.2/@complexTypes.6"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="InteractionEntity">
+        <features>ENTITY</features>
+        <dataFields name="id">
+          <features>IDENTIFIER</features>
+        </dataFields>
+        <dataFields name="^date"/>
+        <dataFields name="content"/>
+        <dataFields name="sentByOperator"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="InteractionLogAggregateRoot">
+        <features>ENTITY</features>
+        <features>AGGREGATE</features>
+        <dataFields name="username"/>
+        <dataFields name="lastAcknowledgedInteractionId"/>
+        <dataFields name="interactions" complexType="/0/@contexts.2/@complexTypes.7"/>
+        <operations name="getNumberOfUnacknowledgedInteractions">
+          <primitiveReturnType xsi:type="data:PrimitiveInteger"/>
+        </operations>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="Notification">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="username" immutable="true"/>
+        <dataFields name="count" immutable="true"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListInteractionLogAggregateRoot">
+        <dataFields name="interactionLogAggregateRoot" complexType="/0/@contexts.2/@complexTypes.3"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListNotification">
+        <dataFields name="notification" complexType="/0/@contexts.2/@complexTypes.4"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListInteractionEntity">
+        <dataFields name="interactionEntity" complexType="/0/@contexts.2/@complexTypes.2"/>
+      </complexTypes>
+    </contexts>
+    <contexts name="identityAccess">
+      <complexTypes xsi:type="data:DataStructure" name="UserLoginRepository">
+        <features>REPOSITORY</features>
+        <dataFields name="id"/>
+        <dataFields name="login" complexType="/0/@contexts.3/@complexTypes.2"/>
+        <operations name="findByEmail" complexReturnType="/0/@contexts.3/@complexTypes.2">
+          <parameters name="email"/>
+        </operations>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="UserDetailsService">
+        <features>SERVICE</features>
+        <dataFields name="^repository" complexType="/0/@contexts.3/@complexTypes.0"/>
+        <operations name="loadUserByUsername" complexReturnType="/0/@contexts.3/@complexTypes.4">
+          <parameters name="unnamed">
+            <primitiveType xsi:type="data:PrimitiveString"/>
+          </parameters>
+        </operations>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="UserLogin">
+        <features>ENTITY</features>
+        <dataFields name="id">
+          <features>IDENTIFIER</features>
+        </dataFields>
+        <dataFields name="authorities"/>
+        <dataFields name="email"/>
+        <dataFields name="password"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="UserSecurityDetails">
+        <features>ENTITY</features>
+        <dataFields name="id">
+          <features>IDENTIFIER</features>
+        </dataFields>
+        <dataFields name="accountNonExpired"/>
+        <dataFields name="accountNonLocked"/>
+        <dataFields name="credentialsNonExpired"/>
+        <dataFields name="email"/>
+        <dataFields name="enabled"/>
+        <dataFields name="password"/>
+        <dataFields name="authorities" complexType="/0/@contexts.3/@complexTypes.5"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="UserDetails">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="email" immutable="true"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListString">
+        <primitiveType xsi:type="data:PrimitiveString"/>
+      </complexTypes>
+    </contexts>
+    <contexts name="policy">
+      <complexTypes xsi:type="data:DataStructure" name="RiskManagementService">
+        <features>SERVICE</features>
+        <operations name="notifyRiskManagement" complexReturnType="/0/@contexts.4/@complexTypes.8">
+          <parameters name="originator"/>
+          <parameters name="^date"/>
+          <parameters name="customer" complexType="/0/@contexts.4/@complexTypes.10"/>
+          <parameters name="policy" complexType="/0/@contexts.4/@complexTypes.2"/>
+        </operations>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="InsuringAgreementEntity">
+        <features>ENTITY</features>
+        <dataFields name="id">
+          <features>IDENTIFIER</features>
+        </dataFields>
+        <dataFields name="items" complexType="/0/@contexts.4/@complexTypes.9"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="PolicyAggregateRoot">
+        <features>ENTITY</features>
+        <features>AGGREGATE</features>
+        <dataFields name="creationDate"/>
+        <dataFields name="id" complexType="/0/@contexts.4/@complexTypes.5">
+          <features>IDENTIFIER</features>
+          <features>PART</features>
+        </dataFields>
+        <dataFields name="policyPeriod" complexType="/0/@contexts.4/@complexTypes.6">
+          <features>PART</features>
+        </dataFields>
+        <dataFields name="policyType" complexType="/0/@contexts.4/@complexTypes.7">
+          <features>PART</features>
+        </dataFields>
+        <dataFields name="policyLimit" complexType="/0/@contexts.4/@complexTypes.4">
+          <features>PART</features>
+        </dataFields>
+        <dataFields name="insurancePremium" complexType="/0/@contexts.4/@complexTypes.4">
+          <features>PART</features>
+        </dataFields>
+        <dataFields name="insuringAgreement" complexType="/0/@contexts.4/@complexTypes.1"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="InsuringAgreementItem">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="id" immutable="true"/>
+        <dataFields name="title" immutable="true"/>
+        <dataFields name="description" immutable="true"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="MoneyAmount">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="amount" immutable="true"/>
+        <dataFields name="currency" immutable="true"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="PolicyId">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="id" immutable="true"/>
+        <operations name="random" complexReturnType="/0/@contexts.4/@complexTypes.5"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="PolicyPeriod">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="startDate" immutable="true"/>
+        <dataFields name="endDate" immutable="true"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="PolicyType">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="name" immutable="true"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="PolicyEvent">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="originator" immutable="true"/>
+        <dataFields name="^date" immutable="true"/>
+        <dataFields name="CustomerShared" complexType="/0/@contexts.4/@complexTypes.10"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:ListType" name="ListInsuringAgreementItem">
+        <dataFields name="insuringAgreementItem" complexType="/0/@contexts.4/@complexTypes.3"/>
+      </complexTypes>
+      <complexTypes xsi:type="data:DataStructure" name="CustomerShared">
+        <features>VALUE_OBJECT</features>
+        <dataFields name="customerId"/>
+        <dataFields name="customerProfile"/>
+      </complexTypes>
+    </contexts>
+  </data:DataModel>
+  <data:PrimitiveString/>
+</xmi:XMI>

@@ -1,0 +1,7 @@
+import datatypes from "extracted_domain_city.data" as city
+
+architecture functional microservice ADD_QUALIFYING_PART.city {
+	interface ProvidedTypes {
+		getCitiesForPostalCode(sync postalCode : unspecified, sync out unnamed : city::city.ListCityShared);
+	}
+}

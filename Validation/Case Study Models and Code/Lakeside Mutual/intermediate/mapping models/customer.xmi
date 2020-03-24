@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateServiceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/service/intermediate" xmlns:intermediate_1="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="">
+  <imports name="services" importUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/intermediate/service models/service_customer.xmi" importTypeName="MICROSERVICES"/>
+  <imports name="java" importUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/Phase 4/java.technology" importTypeName="TECHNOLOGY"/>
+  <imports name="customer" importUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/intermediate/data models/domain_customer.xmi" importTypeName="DATATYPES"/>
+  <microservices sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/Phase 3/customer/service_customer.services" name="org.example.customer.Customer" qualifiedName="org.example.customer.Customer" visibility="ARCHITECTURE" effectivelyImplemented="true">
+    <technologies name="java" import="//@imports.1"/>
+    <protocols protocol="rest" dataFormat="json"/>
+    <protocols communicationType="ASYNCHRONOUS" protocol="amqp" dataFormat="json"/>
+    <interfaces name="ProvidedTypes" qualifiedName="org.example.customer.Customer.ProvidedTypes" visibility="ARCHITECTURE" hasImplementedOperations="true">
+      <endpoints protocol="rest" dataFormat="json" technology="//@microservices.0/@technologies.0">
+        <addresses>customer</addresses>
+      </endpoints>
+      <protocols protocol="rest" dataFormat="json"/>
+      <protocols communicationType="ASYNCHRONOUS" protocol="amqp" dataFormat="json"/>
+      <operations name="getCustomerId" qualifiedName="org.example.customer.Customer.ProvidedTypes.getCustomerId" visibility="ARCHITECTURE">
+        <endpoints protocol="rest" dataFormat="json" technology="//@microservices.0/@technologies.0">
+          <addresses>customerId</addresses>
+        </endpoints>
+        <protocols protocol="rest" dataFormat="json"/>
+        <protocols communicationType="ASYNCHRONOUS" protocol="amqp" dataFormat="json"/>
+        <aspects name="GetMapping" qualifiedName="java.GetMapping" import="//@imports.1"/>
+        <parameters name="customerId" qualifiedName="org.example.customer.Customer.ProvidedTypes.getCustomerId.customerId" exchangePattern="OUT">
+          <type xsi:type="intermediate_1:IntermediateImportedComplexType" name="CustomerId" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="customer.CustomerId" import="//@imports.2"/>
+        </parameters>
+      </operations>
+      <operations name="getCustomers" qualifiedName="org.example.customer.Customer.ProvidedTypes.getCustomers" visibility="ARCHITECTURE">
+        <endpoints protocol="rest" dataFormat="json" technology="//@microservices.0/@technologies.0">
+          <addresses>customers</addresses>
+        </endpoints>
+        <protocols protocol="rest" dataFormat="json"/>
+        <protocols communicationType="ASYNCHRONOUS" protocol="amqp" dataFormat="json"/>
+        <aspects name="GetMapping" qualifiedName="java.GetMapping" import="//@imports.1"/>
+        <parameters name="listCustomerId" qualifiedName="org.example.customer.Customer.ProvidedTypes.getCustomers.listCustomerId" exchangePattern="OUT">
+          <type xsi:type="intermediate_1:IntermediateImportedComplexType" name="ListCustomerId" origin="DATA_MODEL" kind="LIST" qualifiedName="customer.ListCustomerId" import="//@imports.2"/>
+        </parameters>
+      </operations>
+    </interfaces>
+    <aspects name="CustomProperty" qualifiedName="java.CustomProperty" import="//@imports.1">
+      <properties name="name" type="string">
+        <featureNames>MANDATORY</featureNames>
+      </properties>
+      <properties name="value" type="string">
+        <featureNames>MANDATORY</featureNames>
+      </properties>
+      <propertyValues value="server.port" property="//@microservices.0/@aspects.0/@properties.0"/>
+      <propertyValues value="8081" property="//@microservices.0/@aspects.0/@properties.1"/>
+    </aspects>
+  </microservices>
+</intermediate:IntermediateServiceModel>

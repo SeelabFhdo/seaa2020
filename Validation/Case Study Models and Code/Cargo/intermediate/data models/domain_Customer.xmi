@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateDataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/Phase 3/Customer/domain_Customer.data">
+  <contexts name="Customer" qualifiedName="Customer">
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="CustomerRepository" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Customer.CustomerRepository">
+      <featureNames>REPOSITORY</featureNames>
+      <operations name="findbyname" qualifiedName="Customer.CustomerRepository.findbyname">
+        <returnType>
+          <type xsi:type="intermediate:IntermediateComplexType" name="ListCustomer" origin="DATA_MODEL" kind="LIST" qualifiedName="Customer.ListCustomer"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="ListCustomer" origin="DATA_MODEL" kind="LIST" qualifiedName="Customer.ListCustomer"/>
+        </returnType>
+        <parameters name="unspecified" qualifiedName="Customer.CustomerRepository.findbyname.unspecified">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+      </operations>
+      <operations name="findbyCustomerID" qualifiedName="Customer.CustomerRepository.findbyCustomerID">
+        <returnType>
+          <type xsi:type="intermediate:IntermediateComplexType" name="ListCustomer" origin="DATA_MODEL" kind="LIST" qualifiedName="Customer.ListCustomer"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="ListCustomer" origin="DATA_MODEL" kind="LIST" qualifiedName="Customer.ListCustomer"/>
+        </returnType>
+        <parameters name="unspecified" qualifiedName="Customer.CustomerRepository.findbyCustomerID.unspecified">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+      </operations>
+      <dataFields name="customer" qualifiedName="Customer.CustomerRepository.customer">
+        <type xsi:type="intermediate:IntermediateComplexType" name="ListCustomer" origin="DATA_MODEL" kind="LIST" qualifiedName="Customer.ListCustomer"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="ListCustomer" origin="DATA_MODEL" kind="LIST" qualifiedName="Customer.ListCustomer"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="Customer" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Customer.Customer">
+      <featureNames>ENTITY</featureNames>
+      <dataFields name="name" qualifiedName="Customer.Customer.name">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="customerID" qualifiedName="Customer.Customer.customerID">
+        <featureNames>IDENTIFIER</featureNames>
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Customer.CustomerShared">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="customerID" qualifiedName="Customer.CustomerShared.customerID">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListCustomer" origin="DATA_MODEL" kind="LIST" qualifiedName="Customer.ListCustomer" structuredList="true">
+      <dataFields name="customer" qualifiedName="Customer.ListCustomer.customer">
+        <type xsi:type="intermediate:IntermediateComplexType" name="Customer" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Customer.Customer"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="Customer" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Customer.Customer"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListCustomerShared" origin="DATA_MODEL" kind="LIST" qualifiedName="Customer.ListCustomerShared" structuredList="true">
+      <dataFields name="customerShared" qualifiedName="Customer.ListCustomerShared.customerShared">
+        <type xsi:type="intermediate:IntermediateComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Customer.CustomerShared"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="CustomerShared" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Customer.CustomerShared"/>
+      </dataFields>
+    </complexTypes>
+  </contexts>
+</intermediate:IntermediateDataModel>

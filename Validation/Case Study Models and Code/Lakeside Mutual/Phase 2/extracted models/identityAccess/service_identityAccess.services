@@ -1,0 +1,5 @@
+import datatypes from "domain_identityAccess.data" as identityAccess
+
+architecture functional microservice ADD_QUALIFYING_PART.identityAccess {
+	[DEFINE_OPERATIONS]
+}

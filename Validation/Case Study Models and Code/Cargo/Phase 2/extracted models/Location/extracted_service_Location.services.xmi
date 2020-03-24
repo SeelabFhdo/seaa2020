@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<service:ServiceModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="de.fhdo.lemma.data" xmlns:service="de.fhdo.lemma.service">
+  <imports name="location" importURI="extracted_domain_Location.data"/>
+  <microservices name="Location">
+    <interfaces name="ProvidedTypes">
+      <operations name="getFrom">
+        <parameters name="location" exchangePattern="OUT">
+          <importedType import="//@imports.0">
+            <type xsi:type="data:DataStructure" href="/Cargo/extracted models/Location/extracted_domain_Location.data.xmi#//@contexts.0/@complexTypes.1"/>
+          </importedType>
+        </parameters>
+      </operations>
+      <operations name="getTo">
+        <parameters name="location" exchangePattern="OUT">
+          <importedType import="//@imports.0">
+            <type xsi:type="data:DataStructure" href="/Cargo/extracted models/Location/extracted_domain_Location.data.xmi#//@contexts.0/@complexTypes.1"/>
+          </importedType>
+        </parameters>
+      </operations>
+      <operations name="getDestination">
+        <parameters name="location" exchangePattern="OUT">
+          <importedType import="//@imports.0">
+            <type xsi:type="data:DataStructure" href="/Cargo/extracted models/Location/extracted_domain_Location.data.xmi#//@contexts.0/@complexTypes.1"/>
+          </importedType>
+        </parameters>
+      </operations>
+    </interfaces>
+  </microservices>
+</service:ServiceModel>

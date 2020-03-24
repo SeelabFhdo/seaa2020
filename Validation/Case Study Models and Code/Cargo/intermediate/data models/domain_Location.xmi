@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateDataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Cargo/Phase 3/Location/domain_Location.data">
+  <contexts name="Location" qualifiedName="Location">
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="LocationService" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Location.LocationService">
+      <featureNames>SERVICE</featureNames>
+      <operations name="resolvebyportcode" qualifiedName="Location.LocationService.resolvebyportcode">
+        <parameters name="unspecified" qualifiedName="Location.LocationService.resolvebyportcode.unspecified">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+      </operations>
+      <dataFields name="location" qualifiedName="Location.LocationService.location">
+        <type xsi:type="intermediate:IntermediateComplexType" name="ListLocation" origin="DATA_MODEL" kind="LIST" qualifiedName="Location.ListLocation"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="ListLocation" origin="DATA_MODEL" kind="LIST" qualifiedName="Location.ListLocation"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="Location" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Location.Location">
+      <featureNames>ENTITY</featureNames>
+      <dataFields name="name" qualifiedName="Location.Location.name">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="customerID" qualifiedName="Location.Location.customerID">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="portcode" qualifiedName="Location.Location.portcode">
+        <featureNames>IDENTIFIER</featureNames>
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListLocation" origin="DATA_MODEL" kind="LIST" qualifiedName="Location.ListLocation" structuredList="true">
+      <dataFields name="location" qualifiedName="Location.ListLocation.location">
+        <type xsi:type="intermediate:IntermediateComplexType" name="Location" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Location.Location"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="Location" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="Location.Location"/>
+      </dataFields>
+    </complexTypes>
+  </contexts>
+</intermediate:IntermediateDataModel>

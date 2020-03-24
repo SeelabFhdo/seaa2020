@@ -1,0 +1,5 @@
+import datatypes from "domain_interactionLog.data" as interactionLog
+
+architecture functional microservice ADD_QUALIFYING_PART.interactionLog {
+	[DEFINE_OPERATIONS]
+}

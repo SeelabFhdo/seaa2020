@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intermediate:IntermediateDataModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intermediate="http://www.fhdo.de/lemma/data/intermediate" sourceModelUri="file:///home/florian/Dokumente/Forschung/Paper/Eigene/SEAA 2020/validation/Lakeside Mutual/Phase 3/identityAccess/domain_identityAccess.data">
+  <contexts name="identityAccess" qualifiedName="identityAccess">
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="UserLoginRepository" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserLoginRepository">
+      <featureNames>REPOSITORY</featureNames>
+      <operations name="findByEmail" qualifiedName="identityAccess.UserLoginRepository.findByEmail">
+        <returnType>
+          <type xsi:type="intermediate:IntermediateComplexType" name="UserLogin" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserLogin"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="UserLogin" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserLogin"/>
+        </returnType>
+        <parameters name="email" qualifiedName="identityAccess.UserLoginRepository.findByEmail.email">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+      </operations>
+      <dataFields name="id" qualifiedName="identityAccess.UserLoginRepository.id">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="login" qualifiedName="identityAccess.UserLoginRepository.login">
+        <type xsi:type="intermediate:IntermediateComplexType" name="UserLogin" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserLogin"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="UserLogin" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserLogin"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="UserDetailsService" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserDetailsService">
+      <featureNames>SERVICE</featureNames>
+      <operations name="loadUserByUsername" qualifiedName="identityAccess.UserDetailsService.loadUserByUsername">
+        <returnType>
+          <type xsi:type="intermediate:IntermediateComplexType" name="UserDetails" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserDetails"/>
+          <originalType xsi:type="intermediate:IntermediateComplexType" name="UserDetails" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserDetails"/>
+        </returnType>
+        <parameters name="unspecified" qualifiedName="identityAccess.UserDetailsService.loadUserByUsername.unspecified">
+          <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+          <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        </parameters>
+      </operations>
+      <dataFields name="repository" qualifiedName="identityAccess.UserDetailsService.repository">
+        <type xsi:type="intermediate:IntermediateComplexType" name="UserLoginRepository" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserLoginRepository"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="UserLoginRepository" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserLoginRepository"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="UserLogin" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserLogin">
+      <featureNames>ENTITY</featureNames>
+      <dataFields name="id" qualifiedName="identityAccess.UserLogin.id">
+        <featureNames>IDENTIFIER</featureNames>
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="authorities" qualifiedName="identityAccess.UserLogin.authorities">
+        <type xsi:type="intermediate:IntermediateComplexType" name="ListString" origin="DATA_MODEL" kind="LIST" qualifiedName="identityAccess.ListString"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="ListString" origin="DATA_MODEL" kind="LIST" qualifiedName="identityAccess.ListString"/>
+      </dataFields>
+      <dataFields name="email" qualifiedName="identityAccess.UserLogin.email">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="password" qualifiedName="identityAccess.UserLogin.password">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="UserSecurityDetails" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserSecurityDetails">
+      <featureNames>ENTITY</featureNames>
+      <dataFields name="id" qualifiedName="identityAccess.UserSecurityDetails.id">
+        <featureNames>IDENTIFIER</featureNames>
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="long" origin="BUILTIN" kind="PRIMITIVE" size="64"/>
+      </dataFields>
+      <dataFields name="accountNonExpired" qualifiedName="identityAccess.UserSecurityDetails.accountNonExpired">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="boolean" origin="BUILTIN" kind="PRIMITIVE" size="1"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="boolean" origin="BUILTIN" kind="PRIMITIVE" size="1"/>
+      </dataFields>
+      <dataFields name="accountNonLocked" qualifiedName="identityAccess.UserSecurityDetails.accountNonLocked">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="boolean" origin="BUILTIN" kind="PRIMITIVE" size="1"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="boolean" origin="BUILTIN" kind="PRIMITIVE" size="1"/>
+      </dataFields>
+      <dataFields name="credentialsNonExpired" qualifiedName="identityAccess.UserSecurityDetails.credentialsNonExpired">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="boolean" origin="BUILTIN" kind="PRIMITIVE" size="1"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="boolean" origin="BUILTIN" kind="PRIMITIVE" size="1"/>
+      </dataFields>
+      <dataFields name="email" qualifiedName="identityAccess.UserSecurityDetails.email">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="enabled" qualifiedName="identityAccess.UserSecurityDetails.enabled">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="boolean" origin="BUILTIN" kind="PRIMITIVE" size="1"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="boolean" origin="BUILTIN" kind="PRIMITIVE" size="1"/>
+      </dataFields>
+      <dataFields name="password" qualifiedName="identityAccess.UserSecurityDetails.password">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+      <dataFields name="authorities" qualifiedName="identityAccess.UserSecurityDetails.authorities">
+        <type xsi:type="intermediate:IntermediateComplexType" name="ListString" origin="DATA_MODEL" kind="LIST" qualifiedName="identityAccess.ListString"/>
+        <originalType xsi:type="intermediate:IntermediateComplexType" name="ListString" origin="DATA_MODEL" kind="LIST" qualifiedName="identityAccess.ListString"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateDataStructure" name="UserDetails" origin="DATA_MODEL" kind="STRUCTURE" qualifiedName="identityAccess.UserDetails">
+      <featureNames>VALUE_OBJECT</featureNames>
+      <dataFields name="email" qualifiedName="identityAccess.UserDetails.email" immutable="true">
+        <type xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+        <originalType xsi:type="intermediate:IntermediatePrimitiveType" name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+      </dataFields>
+    </complexTypes>
+    <complexTypes xsi:type="intermediate:IntermediateListType" name="ListString" origin="DATA_MODEL" kind="LIST" qualifiedName="identityAccess.ListString" primitiveList="true">
+      <primitiveType name="string" origin="BUILTIN" kind="PRIMITIVE"/>
+    </complexTypes>
+  </contexts>
+</intermediate:IntermediateDataModel>
